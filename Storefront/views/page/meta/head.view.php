@@ -4,4 +4,5 @@
     <title><?= $metaTitle ?></title>
 
     <link rel="stylesheet" href="/Storefront/assets/css/base.css">
+    <link rel="stylesheet" href="/Storefront/assets/css/layout.css">
 </head>
