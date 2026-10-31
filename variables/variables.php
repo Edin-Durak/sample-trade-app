@@ -3,20 +3,21 @@
 
 # Global variables availible everywhere
 
+$currentPageUri = '/';
 
-$uri = parse_url($_SERVER['REQUEST_URI']);
+if (isset($_SERVER['REQUEST_URI'])) {
+    $uri = parse_url($_SERVER['REQUEST_URI']);
+    $currentPageUri = $uri['path'];
+}
 
-# We only want path value. To avoid additional querry in uri, we'll target only "path" key from this parse_url array
-$currentPageUri = $uri['path'];
-
-### We are making database connection variables accesible globaly
 $config = require __DIR__ . '/../config.local.php';
 
-$username = $config['database']['user'];
-$password = $config['database']['password'];
+$database = $config['database'];
+$username = $database['user'];
+$password = $database['password'];
 
+unset($database['user'], $database['password']);
 
-# Creating global database variable
 require __DIR__ . '/../database/Database.php';
 
-$db = new Database($config, $username, $password);
+$db = new Database($database, $username, $password);
