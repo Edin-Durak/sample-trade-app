@@ -14,9 +14,14 @@ The code will not always be perfect. That is intentional. The goal is practice, 
 
 ## How progress is tracked
 
-Each new piece of work lives on its own Git branch. Branches are **not deleted**, so anyone can follow the full build process over time — from the first styles and views through later features.
+The first steps used one branch per topic (`feature/global-style-and-settings`, `docs/created-README.md-file`). Those branches stay in the repository as a record of the early work.
 
-That visibility is the point of this repository: a public trail of learning, step by step.
+From here the project uses two long-lived branches:
+
+- **`main`** — the accepted snapshot of the app
+- **`develop`** — the working branch where new code is written
+
+Progress is visible in the commit history on `develop`, not in a new branch for every change. Commits follow Conventional Commits, for example `feat(db): connect the app to MySQL` or `docs(readme): explain the two-branch workflow`. When a piece of work is ready, it is merged into `main`.
 
 ## Current focus
 
