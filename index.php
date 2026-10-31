@@ -9,4 +9,3 @@ require './functions/functions.php';
 
 require './controllers/index.php';
 
-dd($currentPageUri);
