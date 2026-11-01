@@ -12,7 +12,7 @@
 
             <main class="content">
 
-                <?= $uri ?>
+                <?= $currentPageUri ?>
             </main>
         </div>
     </div>
