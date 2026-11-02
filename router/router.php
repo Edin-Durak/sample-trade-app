@@ -16,7 +16,7 @@ function abort($code = 404)
 {
     http_response_code($code);
 
-    require "/../Storefront/views/page/{$code}/index.php";
+    require __DIR__ . "/../Storefront/views/page/{$code}/index.view.php";
 
     die();
 }
