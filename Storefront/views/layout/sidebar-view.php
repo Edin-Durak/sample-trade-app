@@ -58,6 +58,7 @@
     </nav>
 
     <!-- Navigation for technician -->
+    <!-- Hide for now 
     <nav class="nav" aria-label="Technician">
         <div class="nav-group">
             <span class="nav-heading">Overview</span>
@@ -89,7 +90,7 @@
             </a>
         </div>
     </nav>
-
+    -->
     <div class="sidebar-footer">
         <div class="label-muted">Laboratory</div>
         <div class="label-strong">Unit 2 · Water &amp; steam chemistry</div>

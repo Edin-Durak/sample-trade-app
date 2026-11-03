@@ -27,7 +27,7 @@
                 </div>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" role="menuitem">My profile</a>
-                <a class="dropdown-item" href="#" role="menuitem">
+                <a class="dropdown-item" href="/login" role="menuitem">
                     <span class="icon icon-sign-out" aria-hidden="true"></span>Sign out
                 </a>
             </div>
