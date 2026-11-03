@@ -7,7 +7,7 @@
     <div class="auth-page">
         <main class="auth-main">
             <div class="auth-wrap">
-                <form class="auth-card" method="post" action="../profile" novalidate aria-labelledby="signin-title">
+                <form class="auth-card" method="post" action="" novalidate aria-labelledby="signin-title">
                     <div class="auth-brand">
                         <span class="brand-mark">
                             <span class="icon icon-logo" aria-hidden="true"></span>
@@ -52,6 +52,12 @@
                                 Show
                             </button>
                         </div>
+                        <?php if (isset($errors['error_message'])) : ?>
+                            <p class="alert danger">
+                                <?= $errors['error_message']; ?>
+                            </p>
+
+                        <?php endif ?>
                     </div>
 
                     <label class="checkbox">
