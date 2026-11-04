@@ -7,6 +7,9 @@ require './classes/User.php';
 
 $metaTitle = 'Login to Sample Trade';
 
+### Make variables false by default to avoid errors on Login page.
+$email_address = false;
+$passowrd = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 

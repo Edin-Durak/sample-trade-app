@@ -32,14 +32,14 @@
                             type="email"
                             autocomplete="username"
                             placeholder="name@northfield-lab.example"
-                            required>
+                            required
+                            <?php if ($email_address) : ?>
+                            value="<?= $email_address ?>"
+                            <?php endif ?>>
                     </div>
 
                     <div class="field">
-                        <div class="field-row">
-                            <label class="label" for="password">Password</label>
-                            <button class="link-btn" type="button">Forgot password?</button>
-                        </div>
+                        <label class="label" for="password">Password</label>
                         <div class="password-field">
                             <input
                                 class="input"
@@ -47,8 +47,15 @@
                                 name="password"
                                 type="password"
                                 autocomplete="current-password"
-                                required>
-                            <button class="password-toggle" type="button" aria-controls="password" aria-pressed="false">
+                                required
+                                <?php if ($passowrd) : ?>
+                                value="<?= $passowrd ?>"
+                                <?php endif ?>>
+                            <button
+                                class="password-toggle"
+                                type="button"
+                                aria-controls="password"
+                                aria-pressed="false">
                                 Show
                             </button>
                         </div>
@@ -56,7 +63,6 @@
                             <p class="alert danger">
                                 <?= $errors['error_message']; ?>
                             </p>
-
                         <?php endif ?>
                     </div>
 
@@ -77,6 +83,20 @@
 
         <footer class="auth-footer">SampleTrail · Northfield Water Lab · internal system</footer>
     </div>
+
+    <script>
+        // Password toggle
+        const passwordInput = document.getElementById('password');
+        const passwordToggle = document.querySelector('.password-toggle');
+
+        passwordToggle.addEventListener('click', () => {
+            const isVisible = passwordInput.type === 'text';
+
+            passwordInput.type = isVisible ? 'password' : 'text';
+            passwordToggle.textContent = isVisible ? 'Show' : 'Hide';
+            passwordToggle.setAttribute('aria-pressed', String(!isVisible));
+        });
+    </script>
 </body>
 
 </html>
