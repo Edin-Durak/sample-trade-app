@@ -12,7 +12,10 @@
 
             <main class="content">
 
+                <?php
 
+                dd($userData);
+                ?>
             </main>
         </div>
     </div>

@@ -33,7 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (! $user) {
             $errors['error_message'] = 'Email or password is incorrect';
         } else {
-            header('location: /profile');
+            $user_id = $user['id'];
+
+            $_SESSION['id'] = $user_id;
+            header("location: /profile?id={$user_id}");
             exit();
         }
     }

@@ -1,5 +1,7 @@
 <?php
 
+$user_id = false;
+
 return [
     '/' => 'controllers/index.php',
     '/profile' => 'controllers/profile/index.php',
