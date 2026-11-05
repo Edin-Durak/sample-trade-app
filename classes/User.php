@@ -27,21 +27,29 @@ class User
     public function getUser($db, $userId)
     {
 
+        if (! isset($userId)) {
+            return;
+        }
+
+
+
         $user = $db->querry('SELECT * FROM users WHERE id = :userId',  [
             'userId' => $userId
         ])->find();
 
-        if (isset($userId)) {
+        if (! $user) {
 
-            $this->id = $user['id'];
-            $this->firstName = $user['first_name'];
-            $this->lastName = $user['last_name'];
-            $this->email = $user['email_address'];
-            $this->password = $user['password'];
-            $this->isActive = $user['is_active'];
-            $this->roleId = $user['role_id'];
-            $this->createdAt = $user['created_at'];
-            $this->updatedAt = $user['updated_at'];
+            return;
         }
+
+        $this->id = $user['id'];
+        $this->firstName = $user['first_name'];
+        $this->lastName = $user['last_name'];
+        $this->email = $user['email_address'];
+        $this->password = $user['password'];
+        $this->isActive = $user['is_active'];
+        $this->roleId = $user['role_id'];
+        $this->createdAt = $user['created_at'];
+        $this->updatedAt = $user['updated_at'];
     }
 }
