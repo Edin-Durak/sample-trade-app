@@ -7,6 +7,8 @@ if ($user->roleId == 1) {
 
 $roleType = ($isAdmin) ? 'Administrator' : 'Technician';
 
+$firstInit = mb_substr($user->firstName, 0, 1);
+$lastInit = mb_substr($user->lastName, 0, 1);
 
 ?>
 
@@ -25,9 +27,9 @@ $roleType = ($isAdmin) ? 'Administrator' : 'Technician';
 
         <details class="user-menu">
             <summary class="user-btn">
-                <span class="avatar">JH</span>
+                <span class="avatar"><?= "$firstInit $lastInit" ?></span>
                 <span class="user-meta">
-                    <span class="user-name"><?= $user->firstName . $user->lastName ?></span>
+                    <span class="user-name"><?= "$user->firstName  $user->lastName" ?></span>
                     <span class="user-role"><?= $roleType ?></span>
                 </span>
                 <span class="icon icon-chevron-down" aria-hidden="true"></span>
