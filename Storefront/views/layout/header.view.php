@@ -1,7 +1,7 @@
 <?php
 
 $isAdmin = false;
-if ($userRoleId == 1) {
+if ($user->roleId == 1) {
     $isAdmin = true;
 }
 
@@ -27,7 +27,7 @@ $roleType = ($isAdmin) ? 'Administrator' : 'Technician';
             <summary class="user-btn">
                 <span class="avatar">JH</span>
                 <span class="user-meta">
-                    <span class="user-name"><?= $userFirstName . $userLastName ?></span>
+                    <span class="user-name"><?= $user->firstName . $user->lastName ?></span>
                     <span class="user-role"><?= $roleType ?></span>
                 </span>
                 <span class="icon icon-chevron-down" aria-hidden="true"></span>
@@ -35,11 +35,11 @@ $roleType = ($isAdmin) ? 'Administrator' : 'Technician';
 
             <div class="dropdown-menu" role="menu">
                 <div class="dropdown-identity">
-                    <div class="user-name"><?= $userFirstName ?></div>
-                    <div class="label-muted"><?= $userEmail ?></div>
+                    <div class="user-name"><?= $user->firstName ?></div>
+                    <div class="label-muted"><?= $user->email ?></div>
                 </div>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" role="menuitem">My profile</a>
+                <a class="dropdown-item" href=<?= "/profile?id{$user->id}" ?> role="menuitem">My profile</a>
                 <a class="dropdown-item" href="/login" role="menuitem">
                     <span class="icon icon-sign-out" aria-hidden="true"></span>Sign out
                 </a>
