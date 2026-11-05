@@ -23,6 +23,37 @@ From here the project uses two long-lived branches:
 
 Progress is visible in the commit history on `develop`, not in a new branch for every change. Commits follow Conventional Commits, for example `feat(db): connect the app to MySQL` or `docs(readme): explain the two-branch workflow`. When a piece of work is ready, it is merged into `main`.
 
-## Current focus
+## How to run locally
 
-Early setup: project structure, global CSS from the design system, first views, and small PHP helpers. More features will follow as the course topics get practiced in context.
+You need PHP 8 and MySQL.
+
+### 1. Start the built-in PHP server
+
+From the **project root**:
+
+```bash
+php -S localhost:8000
+```
+
+Open [http://localhost:8000](http://localhost:8000) in the browser.
+
+### 2. Create the local config file
+
+Copy the example and fill in your MySQL details:
+
+```bash
+cp config.local.example.php config.local.php
+```
+
+Set `host`, `dbname`, `user`, `password`, and `charset` in `config.local.php`. That file stays on your machine and is not committed.
+
+### 3. Create the database and tables
+
+Still from the project root, in another terminal:
+
+```bash
+php database/create-database.php
+php database/create-tables.php
+```
+
+The first command creates the database named in `config.local.php`. The second creates the `role` and `users` tables and a default admin user (`admin@admin.com` / `admin`) if they do not already exist.

@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php require './Storefront/views/page/meta/head.view.php'; ?>
+<?php require __DIR__ . '/meta/head.view.php'; ?>
 
 <body>
+    <div class="app">
+        <?php require __DIR__ . '/../layout/sidebar-view.php'; ?>
 
-    <h1>Hello World</h1>
+        <div class="main">
+            <?php require __DIR__ . '/../layout/header.view.php'; ?>
 
+            <main class="content">
+
+                <?= $currentPageUri ?>
+            </main>
+        </div>
+    </div>
 </body>
 
 </html>

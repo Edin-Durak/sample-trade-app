@@ -11,3 +11,12 @@ function dd($value)
 
     die();
 }
+
+### Check if the current URI is the same as the href
+function isActiveUrl($uri, $href)
+{
+
+    if ($uri === $href) {
+        echo 'is-active';
+    }
+}
