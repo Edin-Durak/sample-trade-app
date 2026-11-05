@@ -3,7 +3,7 @@
 class User
 {
 
-    ### Create user variables and store data using setUserVariables 
+    ### Create user variables and store data using getUser method 
     public $id;
     public $firstName;
     public $lastName;
