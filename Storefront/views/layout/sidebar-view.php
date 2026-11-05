@@ -51,7 +51,7 @@
 
         <div class="nav-group">
             <span class="nav-heading">Personal</span>
-            <a class="nav-link <?php isActiveUrl($currentPageUri, '/profile') ?>" href=<?= "/profile?id={$user_id}" ?>>
+            <a class="nav-link <?php isActiveUrl($currentPageUri, '/profile') ?>" href=<?= "/profile?id={$userId}" ?>>
                 <span class="icon icon-profile" aria-hidden="true"></span>My Profile
             </a>
         </div>

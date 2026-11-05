@@ -12,7 +12,8 @@
 
             <main class="content">
 
-                <?= $currentPageUri ?>
+                <h1> Welcome <?= $user->firstName; ?> </h1>
+
             </main>
         </div>
     </div>

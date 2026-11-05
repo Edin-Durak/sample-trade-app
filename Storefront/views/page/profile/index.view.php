@@ -12,10 +12,8 @@
 
             <main class="content">
 
-                <?php
+                <h1> Welcome <?= $user->firstName; ?> </h1>
 
-                dd($userData);
-                ?>
             </main>
         </div>
     </div>
