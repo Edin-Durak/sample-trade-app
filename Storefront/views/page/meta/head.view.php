@@ -5,4 +5,5 @@
 
     <link rel="stylesheet" href="/Storefront/assets/css/base.css">
     <link rel="stylesheet" href="/Storefront/assets/css/layout.css">
+    <link rel="stylesheet" href="/Storefront/assets/css/components.css">
 </head>
