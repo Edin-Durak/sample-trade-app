@@ -17,8 +17,8 @@ if ($user->firstName) {
     $firstInit = mb_substr($user->firstName, 0, 1);
 }
 
-if ($user->firstName) {
-    $firstInit = mb_substr($user->firstName, 0, 1);
+if ($user->lastName) {
+    $lastInit = mb_substr($user->lastName, 0, 1);
 }
 
 ?>
@@ -38,7 +38,7 @@ if ($user->firstName) {
 
         <details class="user-menu">
             <summary class="user-btn">
-                <span class="avatar"><?= "$firstInit $lastInit" ?></span>
+                <span class="avatar"><?= $firstInit . $lastInit ?></span>
                 <span class="user-meta">
                     <span class="user-name"><?= "$user->firstName  $user->lastName" ?></span>
                     <span class="user-role"><?= $roleType ?></span>

@@ -1,7 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php require __DIR__ . '/../meta/head.view.php'; ?>
+<?php require __DIR__ . '/../meta/head.view.php';
+
+$firstInit = false;
+$lastInit = false;
+
+if ($user->firstName) {
+    $firstInit = mb_substr($user->firstName, 0, 1);
+}
+
+if ($user->lastName) {
+    $lastInit = mb_substr($user->lastName, 0, 1);
+}
+
+?>
 
 <body>
     <div class="app">
@@ -15,13 +28,13 @@
 
                     <div class="page-header">
                         <div class="row">
-                            <span class="avatar avatar-lg" aria-hidden="true">AS</span>
+                            <span class="avatar avatar-lg" aria-hidden="true"><?= $firstInit . $lastInit ?></span>
                             <div class="page-heading">
                                 <h1 class="page-title">
-                                    Amra Selimović
-                                    <span class="tag">Laboratory technician</span>
+                                    <?= htmlspecialchars($user->firstName) . ' ' . htmlspecialchars($user->lastName) ?>
+                                    <span class="tag">Laboratory <?= htmlspecialchars($roleType) ?></span>
                                 </h1>
-                                <p class="page-subtitle">a.selimovic@northfield-lab.example</p>
+                                <p class="page-subtitle"><?= htmlspecialchars($user->email) ?></p>
                             </div>
                         </div>
                     </div>
@@ -40,15 +53,15 @@
                                     <dl class="dl">
                                         <div>
                                             <dt>Full name</dt>
-                                            <dd>Amra Selimović</dd>
+                                            <dd><?= htmlspecialchars($user->firstName) . ' ' . htmlspecialchars($user->lastName) ?></dd>
                                         </div>
                                         <div>
                                             <dt>Email</dt>
-                                            <dd>a.selimovic@northfield-lab.example</dd>
+                                            <dd><?= htmlspecialchars($user->email) ?></dd>
                                         </div>
                                         <div>
                                             <dt>Role</dt>
-                                            <dd>Laboratory technician</dd>
+                                            <dd>Laboratory <?= htmlspecialchars($roleType) ?></dd>
                                         </div>
                                         <div>
                                             <dt>Account status</dt>
@@ -56,7 +69,7 @@
                                         </div>
                                         <div>
                                             <dt>Date added</dt>
-                                            <dd class="num">03 Mar 2025</dd>
+                                            <dd class="num"><?= date('d.m.Y', strtotime($user->createdAt)) ?></dd>
                                         </div>
                                     </dl>
                                 </div>
@@ -79,12 +92,12 @@
                                             </div>
                                             <div class="field">
                                                 <label class="label" for="email">Email</label>
-                                                <input class="input" id="email" type="email" value="a.selimovic@northfield-lab.example" disabled>
+                                                <input class="input" id="email" type="email" value="<?= htmlspecialchars($user->email) ?>" disabled>
                                                 <span class="help">Ask an administrator to change your sign-in email.</span>
                                             </div>
                                             <div class="field">
                                                 <span class="label">Role</span>
-                                                <div class="readonly-field">Laboratory technician</div>
+                                                <div class="readonly-field">Laboratory <?= htmlspecialchars($roleType) ?></div>
                                                 <span class="permission-note">
                                                     <span class="icon icon-lock" aria-hidden="true"></span>
                                                     Set by an administrator
