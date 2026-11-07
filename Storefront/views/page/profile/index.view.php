@@ -5,6 +5,7 @@
 
 $firstInit = false;
 $lastInit = false;
+$lastName = false;
 
 if ($user->firstName) {
     $firstInit = mb_substr($user->firstName, 0, 1);
@@ -12,6 +13,10 @@ if ($user->firstName) {
 
 if ($user->lastName) {
     $lastInit = mb_substr($user->lastName, 0, 1);
+}
+
+if ($user->lastName) {
+    $lastName = $user->lastName;
 }
 
 ?>
@@ -31,7 +36,7 @@ if ($user->lastName) {
                             <span class="avatar avatar-lg" aria-hidden="true"><?= $firstInit . $lastInit ?></span>
                             <div class="page-heading">
                                 <h1 class="page-title">
-                                    <?= htmlspecialchars($user->firstName) . ' ' . htmlspecialchars($user->lastName) ?>
+                                    <?= htmlspecialchars($user->firstName) . ' ' . htmlspecialchars($lastName) ?>
                                     <span class="tag">Laboratory <?= htmlspecialchars($roleType) ?></span>
                                 </h1>
                                 <p class="page-subtitle"><?= htmlspecialchars($user->email) ?></p>
@@ -53,7 +58,7 @@ if ($user->lastName) {
                                     <dl class="dl">
                                         <div>
                                             <dt>Full name</dt>
-                                            <dd><?= htmlspecialchars($user->firstName) . ' ' . htmlspecialchars($user->lastName) ?></dd>
+                                            <dd><?= htmlspecialchars($user->firstName) . ' ' . htmlspecialchars($lastName) ?></dd>
                                         </div>
                                         <div>
                                             <dt>Email</dt>
