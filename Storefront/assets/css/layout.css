@@ -17,22 +17,54 @@
   mask: var(--icon) center / contain no-repeat;
 }
 
-.icon-logo { --icon: url("/Storefront/assets/icons/logo.svg"); }
-.icon-lock { --icon: url("/Storefront/assets/icons/lock.svg"); }
-.icon-dashboard { --icon: url("/Storefront/assets/icons/dashboard.svg"); }
-.icon-samples { --icon: url("/Storefront/assets/icons/samples.svg"); }
-.icon-record-sample { --icon: url("/Storefront/assets/icons/record-sample.svg"); }
-.icon-results { --icon: url("/Storefront/assets/icons/results.svg"); }
-.icon-actions { --icon: url("/Storefront/assets/icons/actions.svg"); }
-.icon-sample-types { --icon: url("/Storefront/assets/icons/sample-types.svg"); }
-.icon-parameters { --icon: url("/Storefront/assets/icons/parameters.svg"); }
-.icon-technicians { --icon: url("/Storefront/assets/icons/technicians.svg"); }
-.icon-profile { --icon: url("/Storefront/assets/icons/profile.svg"); }
-.icon-style-guide { --icon: url("/Storefront/assets/icons/style-guide.svg"); }
-.icon-bell { --icon: url("/Storefront/assets/icons/bell.svg"); }
-.icon-chevron-down { --icon: url("/Storefront/assets/icons/chevron-down.svg"); }
-.icon-sign-out { --icon: url("/Storefront/assets/icons/sign-out.svg"); }
-.icon-menu { --icon: url("/Storefront/assets/icons/menu.svg"); }
+.icon-logo {
+  --icon: url('/Storefront/assets/icons/logo.svg');
+}
+.icon-lock {
+  --icon: url('/Storefront/assets/icons/lock.svg');
+}
+.icon-dashboard {
+  --icon: url('/Storefront/assets/icons/dashboard.svg');
+}
+.icon-samples {
+  --icon: url('/Storefront/assets/icons/samples.svg');
+}
+.icon-record-sample {
+  --icon: url('/Storefront/assets/icons/record-sample.svg');
+}
+.icon-results {
+  --icon: url('/Storefront/assets/icons/results.svg');
+}
+.icon-actions {
+  --icon: url('/Storefront/assets/icons/actions.svg');
+}
+.icon-sample-types {
+  --icon: url('/Storefront/assets/icons/sample-types.svg');
+}
+.icon-parameters {
+  --icon: url('/Storefront/assets/icons/parameters.svg');
+}
+.icon-technicians {
+  --icon: url('/Storefront/assets/icons/technicians.svg');
+}
+.icon-profile {
+  --icon: url('/Storefront/assets/icons/profile.svg');
+}
+.icon-style-guide {
+  --icon: url('/Storefront/assets/icons/style-guide.svg');
+}
+.icon-bell {
+  --icon: url('/Storefront/assets/icons/bell.svg');
+}
+.icon-chevron-down {
+  --icon: url('/Storefront/assets/icons/chevron-down.svg');
+}
+.icon-sign-out {
+  --icon: url('/Storefront/assets/icons/sign-out.svg');
+}
+.icon-menu {
+  --icon: url('/Storefront/assets/icons/menu.svg');
+}
 
 /* ——— Sidebar ——— */
 .sidebar {
@@ -315,6 +347,7 @@
 
 .dropdown-item {
   display: flex;
+  justify-content: flex-start;
   align-items: center;
   gap: var(--spacing-2);
   width: 100%;

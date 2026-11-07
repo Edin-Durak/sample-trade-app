@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php require __DIR__ . '/../meta/head.view.php'; ?>
+<?php require __DIR__ . '/../meta/head.view.php';
+
+#dd($_SERVER);
+#dd($_POST);
+#dd($_SESSION);
+?>
 
 <body>
     <div class="auth-page">

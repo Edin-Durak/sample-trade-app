@@ -7,8 +7,19 @@ if ($user->roleId == 1) {
 
 $roleType = ($isAdmin) ? 'Administrator' : 'Technician';
 
-$firstInit = mb_substr($user->firstName, 0, 1);
-$lastInit = mb_substr($user->lastName, 0, 1);
+### Decleare these initial variables first and then check if user firstName and lastName exist to assign those values to them
+### We avoid errors of non existing variables this way
+
+$firstInit = false;
+$lastInit = false;
+
+if ($user->firstName) {
+    $firstInit = mb_substr($user->firstName, 0, 1);
+}
+
+if ($user->firstName) {
+    $firstInit = mb_substr($user->firstName, 0, 1);
+}
 
 ?>
 
@@ -42,9 +53,18 @@ $lastInit = mb_substr($user->lastName, 0, 1);
                 </div>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href=<?= "/profile?id{$user->id}" ?> role="menuitem">My profile</a>
+
+                <form action="/login" method="POST">
+                    <input type="hidden" name="signout" value="true">
+                    <button class="dropdown-item" type="submit">
+                        <span class="icon icon-sign-out" aria-hidden="true"></span>Sign out
+                    </button>
+                </form>
+                <!--
                 <a class="dropdown-item" href="/login" role="menuitem">
                     <span class="icon icon-sign-out" aria-hidden="true"></span>Sign out
                 </a>
+                -->
             </div>
         </details>
     </div>

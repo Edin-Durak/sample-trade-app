@@ -1,5 +1,8 @@
 <?php
 
+
+
+
 global $db;
 
 require './classes/Validator.php';
@@ -12,6 +15,13 @@ $email_address = false;
 $passowrd = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    #check if email and password are set
+    if (!isset($_POST['email_address']) || !isset($_POST['password'])) {
+
+        require './Storefront/views/page/login/index.view.php';
+        return;
+    }
 
     $email_address = $_POST['email_address'];
     $passowrd = $_POST['password'];

@@ -20,3 +20,15 @@ function isActiveUrl($uri, $href)
         echo 'is-active';
     }
 }
+
+### End session
+
+function endSession()
+{
+
+    if (isset($_POST['signout']) && $_POST['signout'] == 'true') {
+        unset($_SESSION['id']);
+    }
+}
+
+endSession();
