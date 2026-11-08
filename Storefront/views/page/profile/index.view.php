@@ -89,25 +89,47 @@ if ($user->lastName) {
                                         <div class="form-grid">
                                             <div class="field">
                                                 <label class="label" for="first_name">First name<span class="req" aria-hidden="true">*</span></label>
-                                                <input class="input" id="first_name" name="first_name" type="text" value="Amra" required>
+                                                <input class="input" id="first_name" name="first_name" type="text" value="<?= htmlspecialchars($user->firstName) ?>" required>
                                             </div>
                                             <div class="field">
                                                 <label class="label" for="last_name">Last name<span class="req" aria-hidden="true">*</span></label>
-                                                <input class="input" id="last_name" name="last_name" type="text" value="Selimović" required>
+                                                <input class="input" id="last_name" name="last_name" type="text" value="<?= htmlspecialchars($lastName) ?>" required>
                                             </div>
-                                            <div class="field">
-                                                <label class="label" for="email">Email</label>
-                                                <input class="input" id="email" type="email" value="<?= htmlspecialchars($user->email) ?>" disabled>
-                                                <span class="help">Ask an administrator to change your sign-in email.</span>
-                                            </div>
-                                            <div class="field">
-                                                <span class="label">Role</span>
-                                                <div class="readonly-field">Laboratory <?= htmlspecialchars($roleType) ?></div>
-                                                <span class="permission-note">
-                                                    <span class="icon icon-lock" aria-hidden="true"></span>
-                                                    Set by an administrator
-                                                </span>
-                                            </div>
+
+                                            <?php if ($userRole === 1) : ?>
+                                                <div class="field">
+                                                    <label class="label" for="email">Email<span class="req" aria-hidden="true">*</span></label>
+                                                    <input class="input" id="email" name="email" type="email" value="<?= htmlspecialchars($user->email) ?>" required>
+                                                </div>
+
+                                                <div class="field">
+                                                    <label class="label" for="role_id">Role<span class="req" aria-hidden="true">*</span></label>
+                                                    <select class="select" id="role_id" name="role_id" required>
+                                                        <?php foreach ($roleList as $roleOption): ?>
+                                                            <option
+                                                                value="<?= $roleOption['id'] ?>"
+                                                                <?= $user->roleId === $roleOption['id'] ? 'selected' : '' ?>>
+                                                                <?= htmlspecialchars($roleOption['role_name']) ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            <?php else: ?>
+                                                <div class="field">
+                                                    <label class="label" for="email">Email</label>
+                                                    <input class="input" id="email" type="email" value="<?= htmlspecialchars($user->email) ?>" disabled>
+                                                    <span class="help">Ask an administrator to change your sign-in email.</span>
+                                                </div>
+
+                                                <div class="field">
+                                                    <span class="label">Role</span>
+                                                    <div class="readonly-field">Laboratory <?= htmlspecialchars($roleType) ?></div>
+                                                    <span class="permission-note">
+                                                        <span class="icon icon-lock" aria-hidden="true"></span>
+                                                        Set by an administrator
+                                                    </span>
+                                                </div>
+                                            <?php endif; ?>
                                         </div>
                                         <div class="row row-end">
                                             <label class="btn btn-secondary" for="profile-edit-toggle">Cancel</label>
@@ -127,7 +149,7 @@ if ($user->lastName) {
                                     <div class="field span-2">
                                         <label class="label" for="current_password">Current password<span class="req" aria-hidden="true">*</span></label>
                                         <div class="password-field">
-                                            <input class="input" id="current_password" name="current_password" type="password" autocomplete="current-password" required>
+                                            <input class="input" id="current_password" name="current_password" type="password" autocomplete="current-password" value="<?= htmlspecialchars($user->password) ?>" required>
                                             <button class="password-toggle" type="button" aria-controls="current_password" aria-pressed="false">Show</button>
                                         </div>
                                     </div>

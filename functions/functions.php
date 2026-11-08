@@ -27,7 +27,7 @@ function endSession()
 {
 
     if (isset($_POST['signout']) && $_POST['signout'] == 'true') {
-        unset($_SESSION['id']);
+        unset($_SESSION['user']);
     }
 }
 

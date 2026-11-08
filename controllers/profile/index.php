@@ -1,16 +1,19 @@
 <?php
 
-
+require __DIR__ . '../../../classes/Role.php';
 require __DIR__ . '../../../classes/User.php';
 
 $metaTitle = 'My profile';
 
 
-$userId = $_SESSION['id'];
+$userId = $_SESSION['user']['userId'];
+$userRole = $_SESSION['user']['userRole'];
 global $db;
 
-$user = new User();
+$roles = new Role();
+$roleList = $roles->allRoles($db);
 
+$user = new User();
 $user->getUser($db, $userId);
 
 

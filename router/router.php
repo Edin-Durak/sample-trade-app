@@ -9,7 +9,7 @@ function routeToController($uri, $routes, $loginUri)
     if ($loginUri === parse_url($_SERVER['REQUEST_URI'])['path']) {
 
         require __DIR__ . '/../' . $routes[$loginUri];
-    } elseif ((! isset($_SESSION['id']))) {
+    } elseif ((! isset($_SESSION['user']))) {
 
         abort(401);
     } elseif (array_key_exists($uri, $routes)) {
