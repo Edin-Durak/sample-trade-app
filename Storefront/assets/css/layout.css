@@ -1,5 +1,6 @@
 /**
- * App shell: sidebar + top bar
+ * App shell only: sidebar, topbar, auth page.
+ * Shared UI lives in components.css.
  */
 
 .app {
@@ -17,22 +18,22 @@
   mask: var(--icon) center / contain no-repeat;
 }
 
-.icon-logo { --icon: url("/Storefront/assets/icons/logo.svg"); }
-.icon-lock { --icon: url("/Storefront/assets/icons/lock.svg"); }
-.icon-dashboard { --icon: url("/Storefront/assets/icons/dashboard.svg"); }
-.icon-samples { --icon: url("/Storefront/assets/icons/samples.svg"); }
-.icon-record-sample { --icon: url("/Storefront/assets/icons/record-sample.svg"); }
-.icon-results { --icon: url("/Storefront/assets/icons/results.svg"); }
-.icon-actions { --icon: url("/Storefront/assets/icons/actions.svg"); }
-.icon-sample-types { --icon: url("/Storefront/assets/icons/sample-types.svg"); }
-.icon-parameters { --icon: url("/Storefront/assets/icons/parameters.svg"); }
-.icon-technicians { --icon: url("/Storefront/assets/icons/technicians.svg"); }
-.icon-profile { --icon: url("/Storefront/assets/icons/profile.svg"); }
-.icon-style-guide { --icon: url("/Storefront/assets/icons/style-guide.svg"); }
-.icon-bell { --icon: url("/Storefront/assets/icons/bell.svg"); }
-.icon-chevron-down { --icon: url("/Storefront/assets/icons/chevron-down.svg"); }
-.icon-sign-out { --icon: url("/Storefront/assets/icons/sign-out.svg"); }
-.icon-menu { --icon: url("/Storefront/assets/icons/menu.svg"); }
+.icon-logo { --icon: url('/Storefront/assets/icons/logo.svg'); }
+.icon-lock { --icon: url('/Storefront/assets/icons/lock.svg'); }
+.icon-dashboard { --icon: url('/Storefront/assets/icons/dashboard.svg'); }
+.icon-samples { --icon: url('/Storefront/assets/icons/samples.svg'); }
+.icon-record-sample { --icon: url('/Storefront/assets/icons/record-sample.svg'); }
+.icon-results { --icon: url('/Storefront/assets/icons/results.svg'); }
+.icon-actions { --icon: url('/Storefront/assets/icons/actions.svg'); }
+.icon-sample-types { --icon: url('/Storefront/assets/icons/sample-types.svg'); }
+.icon-parameters { --icon: url('/Storefront/assets/icons/parameters.svg'); }
+.icon-technicians { --icon: url('/Storefront/assets/icons/technicians.svg'); }
+.icon-profile { --icon: url('/Storefront/assets/icons/profile.svg'); }
+.icon-style-guide { --icon: url('/Storefront/assets/icons/style-guide.svg'); }
+.icon-bell { --icon: url('/Storefront/assets/icons/bell.svg'); }
+.icon-chevron-down { --icon: url('/Storefront/assets/icons/chevron-down.svg'); }
+.icon-sign-out { --icon: url('/Storefront/assets/icons/sign-out.svg'); }
+.icon-menu { --icon: url('/Storefront/assets/icons/menu.svg'); }
 
 /* ——— Sidebar ——— */
 .sidebar {
@@ -248,18 +249,6 @@
   background: var(--color-surface-muted);
 }
 
-.avatar {
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  font-size: var(--font-size-overline);
-  font-weight: var(--font-weight-semibold);
-  color: var(--color-primary-dark);
-  background: var(--color-primary-soft);
-  border-radius: var(--radius-full);
-}
-
 .user-meta {
   display: flex;
   flex-direction: column;
@@ -276,7 +265,6 @@
 .user-role {
   font-size: var(--font-size-caption);
   line-height: var(--line-height-caption);
-  font-weight: var(--font-weight-regular);
   color: var(--color-text-secondary);
 }
 
@@ -303,10 +291,6 @@
   padding: var(--spacing-2) var(--spacing-3) var(--spacing-1);
 }
 
-.dropdown-identity .user-name {
-  font-size: var(--font-size-label);
-}
-
 .dropdown-divider {
   height: 1px;
   margin: var(--spacing-2) 0;
@@ -315,6 +299,7 @@
 
 .dropdown-item {
   display: flex;
+  justify-content: flex-start;
   align-items: center;
   gap: var(--spacing-2);
   width: 100%;
@@ -344,7 +329,7 @@
   display: none;
 }
 
-/* ——— Auth / login ——— */
+/* ——— Auth page shell ——— */
 .auth-page {
   display: flex;
   flex-direction: column;
@@ -389,82 +374,6 @@
 
 .auth-intro .text-secondary {
   margin: 0;
-  color: var(--color-text-secondary);
-}
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-1);
-}
-
-.field-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-3);
-}
-
-.field-row .label {
-  margin-bottom: 0;
-}
-
-.password-field {
-  position: relative;
-}
-
-.password-field .input {
-  padding-right: 72px;
-}
-
-.password-toggle,
-.link-btn {
-  height: auto;
-  padding: 0;
-  color: var(--color-primary);
-  background: transparent;
-  border: 0;
-  box-shadow: none;
-  font-size: var(--font-size-label);
-  font-weight: var(--font-weight-medium);
-}
-
-.password-toggle {
-  position: absolute;
-  top: 50%;
-  right: var(--spacing-3);
-  transform: translateY(-50%);
-}
-
-.password-toggle:hover,
-.link-btn:hover {
-  color: var(--color-primary-dark);
-  background: transparent;
-  text-decoration: underline;
-}
-
-a.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: var(--control-height);
-  padding: 0 var(--spacing-4);
-  font-size: var(--font-size-body);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-surface);
-  background: var(--color-primary);
-  border-radius: var(--radius-medium);
-  text-decoration: none;
-}
-
-a.btn:hover {
-  color: var(--color-surface);
-  background: var(--color-primary-dark);
-  text-decoration: none;
-}
-
-.btn-block {
-  width: 100%;
 }
 
 .auth-restricted {
@@ -489,5 +398,9 @@ a.btn:hover {
 
   .user-meta {
     display: none;
+  }
+
+  .content {
+    padding: var(--spacing-5) var(--content-padding-mobile);
   }
 }

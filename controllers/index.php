@@ -4,7 +4,7 @@ require __DIR__ . '../../classes/User.php';
 
 $metaTitle = 'Sample Trade';
 
-$userId = $_SESSION['id'];
+$userId = $_SESSION['user']['userId'];
 global $db;
 
 $user = new User();
