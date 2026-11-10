@@ -54,17 +54,18 @@ if ($user->lastName) {
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href=<?= "/profile?id{$user->id}" ?> role="menuitem">My profile</a>
 
+                <!-- Now, this method is changed to simpler logic
                 <form action="/login" method="POST">
                     <input type="hidden" name="signout" value="true">
                     <button class="dropdown-item" type="submit">
                         <span class="icon icon-sign-out" aria-hidden="true"></span>Sign out
                     </button>
                 </form>
-                <!--
-                <a class="dropdown-item" href="/login" role="menuitem">
+                -->
+
+                <a class="dropdown-item" href="/logout" role="menuitem">
                     <span class="icon icon-sign-out" aria-hidden="true"></span>Sign out
                 </a>
-                -->
             </div>
         </details>
     </div>

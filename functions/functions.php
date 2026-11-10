@@ -30,5 +30,5 @@ function endSession()
         unset($_SESSION['user']);
     }
 }
-
-endSession();
+### Instead of endSession we will create logout controller and ther we will check this logic to logout user
+### endSession();
