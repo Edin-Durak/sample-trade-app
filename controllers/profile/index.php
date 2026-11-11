@@ -1,8 +1,8 @@
 <?php
 
-require __DIR__ . '../../../classes/Role.php';
-require __DIR__ . '../../../classes/User.php';
-require __DIR__ . '../../../classes/Validator.php';
+require_once __DIR__ . '../../../classes/Role.php';
+require_once __DIR__ . '../../../classes/User.php';
+require_once __DIR__ . '../../../classes/Validator.php';
 
 $metaTitle = 'My profile';
 

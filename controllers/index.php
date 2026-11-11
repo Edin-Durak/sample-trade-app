@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '../../classes/User.php';
+require_once __DIR__ . '../../classes/User.php';
 
 $metaTitle = 'Sample Trade';
 
