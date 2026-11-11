@@ -52,4 +52,33 @@ class User
         $this->createdAt = $user['created_at'];
         $this->updatedAt = $user['updated_at'];
     }
+
+
+    public static function editProfile($db, $firstName, $lastName, $email, $roleId, $userId)
+    {
+        #check if user is administrator
+        if ($roleId == 1) {
+            return $db->querry('UPDATE users SET first_name = :firstName, last_name = :lastName, email_address = :email, role_id = :roleId WHERE id = :userId', [
+                'firstName' => $firstName,
+                'lastName' => $lastName,
+                'email' => $email,
+                'userId' => $userId
+            ]);
+        } else {
+            return $db->querry('UPDATE users SET first_name = :firstName, last_name = :lastName WHERE id = :userId', [
+                'firstName' => $firstName,
+                'lastName' => $lastName,
+                'userId' => $userId
+            ]);
+        }
+    }
+
+    public static function editPassword($db, $password, $userId)
+    {
+
+        return $db->querry('UPDATE users SET password = :password WHERE id = :userId', [
+            'password' => $password,
+            'userId' => $userId
+        ]);
+    }
 }
