@@ -21,6 +21,20 @@ function isActiveUrl($uri, $href)
     }
 }
 
+### Check if the user is active
+
+function isUserActive($user, $db, $userId)
+{
+
+    $user->getUser($db, $userId);
+
+    if ($user->isActive === 1) {
+        return true;
+    } elseif ($user->isActive === 0) {
+        return false;
+    }
+}
+
 ### End session
 
 function endSession()

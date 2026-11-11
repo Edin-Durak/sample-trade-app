@@ -5,8 +5,8 @@
 
 global $db;
 
-require './classes/Validator.php';
-require './classes/User.php';
+require_once './classes/Validator.php';
+require_once './classes/User.php';
 
 $metaTitle = 'Login to Sample Trade';
 

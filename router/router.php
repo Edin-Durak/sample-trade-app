@@ -1,5 +1,22 @@
 <?php
 
+require_once __DIR__ . '/../classes/User.php';
+
+$user = new User();
+
+### Guard: if the logged-in user was deactivated after login, drop the session and block access.
+if (isset($_SESSION['user'])) {
+
+    $userId = $_SESSION['user']['userId'];
+    $userRole = $_SESSION['user']['userRole'];
+    global $db;
+
+    if (!isUserActive($user, $db, $userId)) {
+
+        unset($_SESSION['user']);
+        abort(401);
+    }
+}
 
 
 function routeToController($uri, $routes, $loginUri, $logoutUri)
