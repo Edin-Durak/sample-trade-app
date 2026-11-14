@@ -33,6 +33,31 @@ $db->querry("
     ) ENGINE=InnoDB DEFAULT CHARSET={$charset}
 ");
 
+$db->querry("
+CREATE TABLE IF NOT EXISTS `parameters` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NOT NULL,
+  `short_code` VARCHAR(8) NOT NULL,
+  `description` TEXT NULL,
+  `measurement_unit` VARCHAR(32) NOT NULL,
+  `active` TINYINT NOT NULL DEFAULT 1,
+  `minimum` DECIMAL(12,4) NULL,
+  `maximum` DECIMAL(12,4) NULL,
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_parameters_short_code` (`short_code`),
+  UNIQUE KEY `uq_parameters_name` (`name`),
+  CONSTRAINT `chk_parameters_short_code`
+    CHECK (`short_code` REGEXP '^[A-Z0-9]{2,8}$'),
+  CONSTRAINT `chk_parameters_limits`
+    CHECK (
+      `minimum` IS NULL
+      OR `maximum` IS NULL
+      OR `minimum` < `maximum`
+    )
+) ENGINE=InnoDB DEFAULT CHARSET={$charset};");
+
 $adminRole = $db->querry('SELECT id FROM role WHERE id = 1')->find();
 
 if (!$adminRole) {
@@ -67,4 +92,4 @@ if (!$user) {
     );
 }
 
-echo 'role and users tables are created and default admin user is created.' . PHP_EOL;
+echo 'role and users tables are created and default admin user is created. parameters table is created.' . PHP_EOL;

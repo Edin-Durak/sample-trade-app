@@ -5,7 +5,7 @@ require_once __DIR__ . '../../../classes/User.php';
 require_once __DIR__ . '../../../classes/Validator.php';
 
 $metaTitle = 'My profile';
-
+$topbarSection = 'My Profile · Personal';
 
 $userId = $_SESSION['user']['userId'];
 $userRole = $_SESSION['user']['userRole'];

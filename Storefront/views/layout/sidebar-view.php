@@ -48,7 +48,7 @@
                 <a class="nav-link <?php isActiveUrl($currentPageUri, '/url') ?>" href="#">
                     <span class="icon icon-sample-types" aria-hidden="true"></span>Sample Types
                 </a>
-                <a class="nav-link" href="#">
+                <a class="nav-link <?php isActiveUrl($currentPageUri, '/parameters') ?>" href="/parameters">
                     <span class="icon icon-parameters" aria-hidden="true"></span>Measurement Parameters
                 </a>
             </div>
