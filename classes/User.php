@@ -81,4 +81,12 @@ class User
             'userId' => $userId
         ]);
     }
+
+
+    public function getAllUsers($db)
+    {
+        $users = $db->querry('SELECT * from users')->get();
+
+        return $users;
+    }
 }

@@ -55,7 +55,7 @@
 
             <div class="nav-group">
                 <span class="nav-heading">User management</span>
-                <a class="nav-link <?php isActiveUrl($currentPageUri, '/url') ?>" href="#">
+                <a class="nav-link <?php isActiveUrl($currentPageUri, '/url') ?>" href="/profiles">
                     <span class="icon icon-technicians" aria-hidden="true"></span>Laboratory Technicians
                 </a>
             </div>
