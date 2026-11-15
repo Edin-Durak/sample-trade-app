@@ -62,6 +62,7 @@ class User
                 'firstName' => $firstName,
                 'lastName' => $lastName,
                 'email' => $email,
+                'roleId' => $roleId,
                 'userId' => $userId
             ]);
         } else {

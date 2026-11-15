@@ -25,7 +25,7 @@ $userId = $user->id;
 $passowrd = $user->password;
 
 
-#dd($_POST);
+#dd($userId);
 
 ### Check for request type
 
