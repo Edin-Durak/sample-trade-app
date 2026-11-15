@@ -44,7 +44,16 @@
                                 <div class="form-grid">
                                     <div class="field">
                                         <label class="label" for="first_name">First name<span class="req" aria-hidden="true">*</span></label>
-                                        <input class="input" id="first_name" name="first_name" type="text" autocomplete="off" required>
+                                        <input class="input" id="first_name" name="first_name" type="text" autocomplete="off"
+                                            <?php if ($firstName) : ?>
+                                            value=<?= "$firstName" ?>
+                                            <?php endif ?>
+                                            required>
+                                        <?php if (isset($errors['nameErrorMessage'])) : ?>
+                                            <p class="alert danger">
+                                                <?= $errors['nameErrorMessage']; ?>
+                                            </p>
+                                        <?php endif ?>
                                     </div>
 
                                     <div class="field">
@@ -53,9 +62,18 @@
                                     </div>
 
                                     <div class="field span-2">
-                                        <label class="label" for="email">Email<span class="req" aria-hidden="true">*</span></label>
-                                        <input class="input" id="email" name="email" type="email" autocomplete="off" placeholder="name@northfield-lab.example" required>
+                                        <label class="label" for="email_address">Email<span class="req" aria-hidden="true">*</span></label>
+                                        <input class="input" id="email_address" name="email_address" type="email" autocomplete="off" placeholder="name@northfield-lab.example"
+                                            <?php if ($firstName) : ?>
+                                            value=<?= "$firstName" ?>
+                                            <?php endif ?>
+                                            required>
                                         <span class="help">Used to sign in and to receive the account setup invitation.</span>
+                                        <?php if (isset($errors['emailErrorMessage'])) : ?>
+                                            <p class="alert danger">
+                                                <?= $errors['emailErrorMessage']; ?>
+                                            </p>
+                                        <?php endif ?>
                                     </div>
 
                                     <div class="field">
@@ -75,18 +93,20 @@
                                         </select>
                                         <span class="help">Inactive accounts cannot sign in. New accounts can be left Active so they sign in after setting a password.</span>
                                     </div>
-
+                                    <!-- 
                                     <div class="field span-2">
                                         <label class="label" for="notes">Notes <span class="optional">(optional)</span></label>
                                         <textarea class="textarea" id="notes" name="notes" rows="3" placeholder="Shift, training status, start date…"></textarea>
                                         <span class="help">Visible to administrators only.</span>
                                     </div>
+                                    -->
                                 </div>
                             </div>
 
                             <div class="card-footer">
                                 <div class="row row-end">
                                     <a class="btn btn-secondary" href="/profiles">Cancel</a>
+                                    <input type="hidden" name="create_profile" value="true">
                                     <button class="btn btn-primary" type="submit">Create account</button>
                                 </div>
                             </div>

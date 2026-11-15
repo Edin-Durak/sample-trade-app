@@ -14,6 +14,23 @@ class User
     public $createdAt;
     public $updatedAt;
 
+    ### Create new User
+
+    public static function createUser($db, $firstName, $lastName, $email, $passowrd, $isActive, $roleId)
+    {
+        return $db->querry(
+            'INSERT INTO users (first_name, last_name, email_address, password, is_active, role_id) VALUES (:firstName, :lastName, :email, :password, :isActive, :roleId)',
+            [
+                'firstName' => $firstName,
+                'lastName' => $lastName,
+                'email' => $email,
+                'password' => $passowrd,
+                'isActive' => $isActive,
+                'roleId' => $roleId
+            ]
+        );
+    }
+
     ### Check if user exists in the database
     public static function loginAttempt($db, $email_address, $passowrd)
     {

@@ -18,4 +18,62 @@ $roleList = $roles->allRoles($db);
 $user = new User();
 $user->getUser($db, $userId);
 
+$isAdmin = false;
+if ($user->roleId == 1) {
+    $isAdmin = true;
+}
+
+### Set false variables to avoid error on initial load
+
+$firstName = false;
+$lastName = false;
+$email = false;
+$passowrd = false;
+$roleId = false;
+$isActive = false;
+
+
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    ### First check if user is admin
+
+    if (!$isAdmin) {
+        abort();
+    }
+
+    if (isset($_POST['create_profile']) && $_POST['create_profile'] == 'true') {
+
+        $firstName = $_POST['first_name'];
+        $lastName = $_POST['last_name'];
+        $email = $_POST['email_address'];
+        $passowrd = getRandomString($passowrd, 10);
+        $roleId = $_POST['role_id'];
+        $isActive = $_POST['is_active'];
+
+
+
+        $errors = [];
+
+
+        if (! Validator::string($firstName, 1, 255)) {
+            $errors['nameErrorMessage'] = "Check first name input. It can't be empty or longer than 255 characters.";
+        }
+
+        if (! Validator::string($email, 1, 255)) {
+            $errors['emailErrorMessage'] = "Check email input. It can't be empty or longer than 255 characters.";
+        }
+
+        if (empty($errors)) {
+
+            User::createUser($db, $firstName, $lastName, $email, $passowrd, $isActive, $roleId);
+
+            header('Location: /profiles');
+            exit();
+        }
+    }
+}
+
+
+
 require './Storefront/views/page/profile/create.view.php';
