@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $errors = [];
 
-    if (isset($_POST['parameter']) && $_POST['parameter'] == 'true') {
+    if (isset($_POST['create_parameter']) && $_POST['create_parameter'] == 'true') {
 
         $name = $_POST['name'];
         $shortCode = $_POST['short_code'];

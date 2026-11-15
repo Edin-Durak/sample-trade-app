@@ -119,7 +119,7 @@
                             <div class="card-footer">
                                 <div class="row row-end">
                                     <a class="btn btn-secondary" href="/parameters">Cancel</a>
-                                    <input name="parameter" value="true" type="hidden">
+                                    <input name="create_parameter" value="true" type="hidden">
                                     <button class="btn btn-primary" type="submit">Create parameter</button>
                                 </div>
                             </div>

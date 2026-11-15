@@ -32,6 +32,22 @@ class Parameter
         ]);
     }
 
+    ### Edit parameter
+    public static function editParameter($db, $name, $shortCode, $description, $measurementUnit, $active, $minimum, $maximum, $id)
+    {
+
+        return $db->querry('UPDATE parameters SET name = :name, short_code = :shortCode, description = :description, measurement_unit = :measurementUnit, active = :active, minimum = :minimum, maximum = :maximum WHERE id = :id', [
+            'name' => $name,
+            'shortCode' => $shortCode,
+            'description' => $description,
+            'measurementUnit' => $measurementUnit,
+            'active' => $active,
+            'minimum' => $minimum,
+            'maximum' => $maximum,
+            'id' => $id
+        ]);
+    }
+
     ### Fetch all parameters
 
     public function getAllarameters($db)

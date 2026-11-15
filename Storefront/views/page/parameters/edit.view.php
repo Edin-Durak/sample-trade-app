@@ -43,34 +43,43 @@
                             <div class="card-body">
                                 <div class="form-grid">
                                     <div class="field">
-                                        <label class="label" for="pf-name">Parameter name<span class="req" aria-hidden="true">*</span></label>
-                                        <input class="input" id="pf-name" name="name" type="text" value="<?= htmlspecialchars($name) ?>" required>
+                                        <label class="label" for="name">Parameter name<span class="req" aria-hidden="true">*</span></label>
+                                        <input class="input" id="name" name="name" type="text" value="<?= htmlspecialchars($name) ?>" required>
+
+                                        <?php if (isset($errors['nameErrorMessage'])) : ?>
+                                            <p class="alert danger">
+                                                <?= $errors['nameErrorMessage'] ?>
+                                            </p>
+                                        <?php endif ?>
                                     </div>
 
                                     <div class="field">
-                                        <label class="label" for="pf-code">Unique short code<span class="req" aria-hidden="true">*</span></label>
-                                        <input class="input mono" id="pf-code" name="code" type="text" maxlength="8" value="<?= htmlspecialchars($shortCode) ?>" required>
+                                        <label class="label" for="short_code">Unique short code<span class="req" aria-hidden="true">*</span></label>
+                                        <input class="input mono" id="short_code" name="short_code" type="text" maxlength="8" value="<?= htmlspecialchars($shortCode) ?>" required>
                                         <span class="help">2–8 capital letters or digits.</span>
+
+                                        <?php if (isset($errors['codeErrorMessage'])) : ?>
+                                            <p class="alert danger">
+                                                <?= $errors['codeErrorMessage'] ?>
+                                            </p>
+                                        <?php endif ?>
                                     </div>
 
                                     <div class="field span-2">
-                                        <label class="label" for="pf-desc">Description <span class="optional">(optional)</span></label>
-                                        <textarea class="textarea" id="pf-desc" name="description" value="<?= htmlspecialchars($description) ?>" rows="2"></textarea>
+                                        <label class="label" for="description">Description <span class="optional">(optional)</span></label>
+                                        <textarea class="textarea" id="description" name="description" rows="2"><?= htmlspecialchars($description) ?></textarea>
                                     </div>
 
                                     <div class="field">
-                                        <label class="label" for="pf-unit">Unit of measurement<span class="req" aria-hidden="true">*</span></label>
-                                        <select class="select" id="pf-unit" name="unit" required>
-                                            <option value="">Select a unit…</option>
-                                            <option value="pH units" selected>pH units</option>
-                                            <option value="µS/cm">µS/cm</option>
-                                            <option value="NTU">NTU</option>
-                                            <option value="mg/L">mg/L</option>
-                                            <option value="µg/L">µg/L</option>
-                                            <option value="°C">°C</option>
-                                            <option value="%">%</option>
-                                        </select>
+                                        <label class="label" for="measurement_unit">Unit of measurement<span class="req" aria-hidden="true">*</span></label>
+                                        <input class="input" id="measurement_unit" name="measurement_unit" type="text" value="<?= htmlspecialchars($measurementUnit) ?>" required>
                                         <span class="help">Default unit. A sample type can use a different one.</span>
+
+                                        <?php if (isset($errors['unitErrorMessage'])) : ?>
+                                            <p class="alert danger">
+                                                <?= $errors['unitErrorMessage'] ?>
+                                            </p>
+                                        <?php endif ?>
                                     </div>
 
                                     <div class="field">
@@ -82,27 +91,18 @@
                                     </div>
 
                                     <div class="field">
-                                        <label class="label" for="pf-min">Default minimum <span class="optional">(optional)</span></label>
+                                        <label class="label" for="minimum">Default minimum <span class="optional">(optional)</span></label>
                                         <div class="row">
-                                            <input class="input num" id="pf-min" name="def_min" type="text" inputmode="decimal" placeholder="Not set"
-                                                <?php if (!isset($minimum)) : ?>
-                                                value="<?= $minimum ?>"
-
-                                                <?php endif ?>>
-                                            <span class="t-caption">pH units</span>
+                                            <input class="input num" id="minimum" name="minimum" type="text" inputmode="decimal" placeholder="Not set" value="<?= $minimum ?>">
+                                            <span class="t-caption"><?= htmlspecialchars($measurementUnit) ?> units</span>
                                         </div>
                                     </div>
 
                                     <div class="field">
-                                        <label class="label" for="pf-max">Default maximum <span class="optional">(optional)</span></label>
+                                        <label class="label" for="maximum">Default maximum <span class="optional">(optional)</span></label>
                                         <div class="row">
-                                            <input class="input num" id="pf-max" name="def_max" type="text" inputmode="decimal" placeholder="Not set"
-                                                <?php if (!isset($minimum)) : ?>
-                                                value="<?= $minimum ?>"
-
-                                                <?php endif ?>>
-                                            >
-                                            <span class="t-caption">pH units</span>
+                                            <input class="input num" id="maximum" name="maximum" type="text" inputmode="decimal" placeholder="Not set" value="<?= $maximum ?>">
+                                            <span class="t-caption"><?= htmlspecialchars($measurementUnit) ?> units</span>
                                         </div>
                                     </div>
 
@@ -115,6 +115,7 @@
                             <div class="card-footer">
                                 <div class="row row-end">
                                     <a class="btn btn-secondary" href="/parameters">Cancel</a>
+                                    <input type="hidden" name="parameter" value="true">
                                     <button class="btn btn-primary" type="submit">Save changes</button>
                                 </div>
                             </div>
