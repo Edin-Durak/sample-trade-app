@@ -3,21 +3,7 @@
 
 <?php require __DIR__ . '/../meta/head.view.php';
 
-$firstInit = false;
-$lastInit = false;
-$lastName = false;
 
-if ($user->firstName) {
-    $firstInit = mb_substr($user->firstName, 0, 1);
-}
-
-if ($user->lastName) {
-    $lastInit = mb_substr($user->lastName, 0, 1);
-}
-
-if ($user->lastName) {
-    $lastName = $user->lastName;
-}
 
 ?>
 
@@ -32,181 +18,124 @@ if ($user->lastName) {
                 <div class="stack">
 
                     <div class="page-header">
-                        <div class="row">
-                            <span class="avatar avatar-lg" aria-hidden="true"><?= $firstInit . $lastInit ?></span>
-                            <div class="page-heading">
-                                <h1 class="page-title">
-                                    <?= htmlspecialchars($user->firstName) . ' ' . htmlspecialchars($lastName) ?>
-                                    <span class="tag">Laboratory <?= htmlspecialchars($roleType) ?></span>
-                                </h1>
-                                <p class="page-subtitle"><?= htmlspecialchars($user->email) ?></p>
-                            </div>
+                        <div class="page-heading">
+                            <h1 class="page-title">Laboratory technicians</h1>
+                            <p class="page-subtitle">Accounts that can sign in to SampleTrail. New accounts receive an invitation to set their own password.</p>
+                        </div>
+                        <div class="page-actions">
+                            <a class="btn btn-primary" href="/profile/create">Add technician</a>
                         </div>
                     </div>
 
-                    <div class="stack">
+                    <section class="card card-menu">
+                        <div class="tabs" role="tablist" aria-label="Filter by account status">
+                            <button class="tab is-active" type="button" role="tab" aria-selected="true">
+                                All <span class="tab-count">6</span>
+                            </button>
+                            <button class="tab" type="button" role="tab" aria-selected="false">
+                                Active <span class="tab-count">4</span>
+                            </button>
+                            <button class="tab" type="button" role="tab" aria-selected="false">
+                                Invitation pending <span class="tab-count">1</span>
+                            </button>
+                            <button class="tab" type="button" role="tab" aria-selected="false">
+                                Inactive <span class="tab-count">1</span>
+                            </button>
+                        </div>
 
-                        <div class="panel-swap">
-                            <input class="panel-swap-toggle visually-hidden" type="checkbox" id="profile-edit-toggle"
-                                <?php if (isset($errors['profileErrorMessage'])) : ?> checked <?php endif ?>>
+                        <form class="toolbar" method="get" action="" role="search">
+                            <div class="field">
+                                <label class="label" for="u-q">Search by name or email</label>
+                                <input class="input" id="u-q" name="q" type="search" placeholder="Name or email">
+                            </div>
+                            <div class="field">
+                                <label class="label" for="u-role">Role</label>
+                                <select class="select" id="u-role" name="role">
+                                    <option value="all">All roles</option>
+                                    <option value="technician">Laboratory technician</option>
+                                    <option value="admin">Administrator</option>
+                                </select>
+                            </div>
+                        </form>
 
-                            <section class="card panel-swap-a">
-                                <div class="card-header">
-                                    <h2 class="card-title">Profile</h2>
-                                    <label class="btn btn-secondary btn-sm" for="profile-edit-toggle">Edit profile</label>
-                                </div>
-                                <div class="card-body">
-                                    <dl class="dl">
-                                        <div>
-                                            <dt>Full name</dt>
-                                            <dd><?= htmlspecialchars($user->firstName) . ' ' . htmlspecialchars($lastName) ?></dd>
-                                        </div>
-                                        <div>
-                                            <dt>Email</dt>
-                                            <dd><?= htmlspecialchars($user->email) ?></dd>
-                                        </div>
-                                        <div>
-                                            <dt>Role</dt>
-                                            <dd>Laboratory <?= htmlspecialchars($roleType) ?></dd>
-                                        </div>
-                                        <div>
-                                            <dt>Account status</dt>
-                                            <dd><span class="badge badge-active">Active</span></dd>
-                                        </div>
-                                        <div>
-                                            <dt>Date added</dt>
-                                            <dd class="num"><?= date('d.m.Y', strtotime($user->createdAt)) ?></dd>
-                                        </div>
-                                    </dl>
-                                </div>
-                            </section>
-
-                            <section class="card panel-swap-b">
-                                <div class="card-header">
-                                    <h2 class="card-title">Edit profile</h2>
-                                </div>
-                                <div class="card-body">
-                                    <form class="stack-sm" method="post" action="" novalidate>
-                                        <div class="form-grid">
-                                            <div class="field">
-                                                <label class="label" for="first_name">First name<span class="req" aria-hidden="true">*</span></label>
-                                                <input class="input" id="first_name" name="first_name" type="text" value="<?= htmlspecialchars($user->firstName) ?>" required>
-                                            </div>
-                                            <div class="field">
-                                                <label class="label" for="last_name">Last name</label>
-                                                <input class="input" id="last_name" name="last_name" type="text" value="<?= htmlspecialchars($lastName) ?>">
-                                            </div>
-
-                                            <?php if ($userRole === 1) : ?>
-                                                <div class="field">
-                                                    <label class="label" for="email">Email<span class="req" aria-hidden="true">*</span></label>
-                                                    <input class="input" id="email" name="email" type="email" value="<?= htmlspecialchars($user->email) ?>" required>
-                                                </div>
-
-                                                <div class="field">
-                                                    <label class="label" for="role_id">Role<span class="req" aria-hidden="true">*</span></label>
-                                                    <select class="select" id="role_id" name="role_id" required>
-                                                        <?php foreach ($roleList as $roleOption): ?>
-                                                            <option
-                                                                value="<?= $roleOption['id'] ?>"
-                                                                <?= $user->roleId === $roleOption['id'] ? 'selected' : '' ?>>
-                                                                <?= htmlspecialchars($roleOption['role_name']) ?>
-                                                            </option>
-                                                        <?php endforeach; ?>
-                                                    </select>
-                                                </div>
-                                            <?php else: ?>
-                                                <div class="field">
-                                                    <label class="label" for="email">Email</label>
-                                                    <input class="input" id="email" type="email" value="<?= htmlspecialchars($user->email) ?>" disabled>
-                                                    <span class="help">Ask an administrator to change your sign-in email.</span>
-                                                </div>
-
-                                                <div class="field">
-                                                    <span class="label">Role</span>
-                                                    <div class="readonly-field">Laboratory <?= htmlspecialchars($roleType) ?></div>
-                                                    <span class="permission-note">
-                                                        <span class="icon icon-lock" aria-hidden="true"></span>
-                                                        Set by an administrator
+                        <div class="table-wrap">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Full name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Role</th>
+                                        <th scope="col">Account status</th>
+                                        <th scope="col">Date added</th>
+                                        <th scope="col" class="col-actions"><span class="visually-hidden">Actions</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($users as $user) : ?>
+                                        <tr>
+                                            <td>
+                                                <div class="row row-nowrap">
+                                                    <span class="avatar" aria-hidden="true">
+                                                        <?=
+                                                        mb_substr($user['first_name'], 0, 1) . ((isset($user['last_name'])) ? mb_substr($user['last_name'], 0, 1) : '')
+                                                        ?>
+                                                    </span>
+                                                    <span>
+                                                        <span class="table-link"><?= htmlspecialchars($user['first_name']) . ' ' . ((isset($user['last_name'])) ? htmlspecialchars($user['last_name']) : '') ?></span>
+                                                        <?php if ($user['role_id'] == 1) : ?>
+                                                            <span class="cell-sub">Laboratory manager</span>
+                                                        <?php elseif ($user['role_id'] == 2) : ?>
+                                                            <span class="cell-sub">Laboratory technician</span>
+                                                        <?php endif ?>
                                                     </span>
                                                 </div>
-                                            <?php endif; ?>
-                                        </div>
-                                        <div class="row row-end">
-                                            <input type="hidden" name="profile" value="true">
-                                            <label class="btn btn-secondary" for="profile-edit-toggle">Cancel</label>
-                                            <button class="btn btn-primary" type="submit" value="profile">Save profile</button>
-                                        </div>
+                                            </td>
+                                            <td><?= htmlspecialchars($user['email_address']) ?></td>
+                                            <?php if ($user['role_id'] == 1) : ?>
+                                                <td><span class="tag">Administrator</span></td>
+                                            <?php elseif ($user['role_id'] == 2) : ?>
+                                                <td><span class="tag">Laboratory technician</span></td>
+                                            <?php endif ?>
+                                            <td><span class="badge badge-<?= ($user['is_active']) ? 'active' : 'inactive' ?>"><?= ($user['is_active']) ? 'Active' : 'Inactive' ?></span></td>
+                                            <td class="num nowrap"><?= date('d.m.Y', strtotime($user['created_at'])) ?></td>
+                                            <td class="col-actions">
+                                                <details class="row-menu">
+                                                    <summary class="icon-btn" aria-label="Actions for Amra Selimović" aria-haspopup="menu">
+                                                        <span aria-hidden="true">···</span>
+                                                    </summary>
+                                                    <div class="dropdown-menu" role="menu">
+                                                        <button class="dropdown-item" type="button" role="menuitem">Change role</button>
+                                                        <button class="dropdown-item" type="button" role="menuitem">Deactivate account…</button>
+                                                        <div class="dropdown-divider"></div>
+                                                        <button class="dropdown-item is-danger" type="button" role="menuitem">Delete account…</button>
+                                                    </div>
+                                                </details>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach ?>
 
-                                        <?php if (isset($errors['profileErrorMessage'])) : ?>
-                                            <p class="alert danger">
-                                                <?= $errors['profileErrorMessage']; ?>
-                                            </p>
-                                        <?php endif ?>
-                                    </form>
-                                </div>
-                            </section>
+                                </tbody>
+                            </table>
                         </div>
 
-                        <section class="card" aria-labelledby="pw-title">
-                            <div class="card-header">
-                                <h2 class="card-title" id="pw-title">Change password</h2>
+                        <div class="card-footer pagination">
+                            <span class="t-caption">Showing <span class="fw-semibold"><?= $usersCount ?></span> of <span class="fw-semibold"><?= $usersCount ?></span> accounts</span>
+                            <div class="pagination-pages">
+                                <button class="page-btn" type="button" disabled aria-label="Previous page">‹</button>
+                                <button class="page-btn is-current" type="button" aria-current="page">1</button>
+                                <button class="page-btn" type="button" disabled aria-label="Next page">›</button>
                             </div>
-                            <form class="card-body stack-sm" method="post" action="" novalidate>
-                                <div class="form-grid">
-                                    <div class="field span-2">
-                                        <label class="label" for="current_password">Current password<span class="req" aria-hidden="true">*</span></label>
-                                        <div class="password-field">
-                                            <input class="input" id="current_password" name="current_password" type="password" autocomplete="current-password" value="<?= htmlspecialchars($user->password) ?>" readonly>
-                                            <button class="password-toggle" type="button" aria-controls="current_password" aria-pressed="false">Show</button>
-                                            <span class="help absolute">This field is read only.</span>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label class="label" for="new_password">New password<span class="req" aria-hidden="true">*</span></label>
-                                        <div class="password-field">
-                                            <input class="input" id="new_password" name="new_password" type="password" autocomplete="new-password" required>
-                                            <button class="password-toggle" type="button" aria-controls="new_password" aria-pressed="false">Show</button>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label class="label" for="confirm_password">Confirm new password<span class="req" aria-hidden="true">*</span></label>
-                                        <div class="password-field">
-                                            <input class="input" id="confirm_password" name="confirm_password" type="password" autocomplete="new-password" required>
-                                            <button class="password-toggle" type="button" aria-controls="confirm_password" aria-pressed="false">Show</button>
-                                        </div>
-                                    </div>
-                                    <?php if (isset($errors['passwordErrorMessage'])) : ?>
-                                        <p class="alert danger">
-                                            <?= $errors['passwordErrorMessage']; ?>
-                                        </p>
-                                    <?php endif ?>
-                                </div>
-                                <div class="row row-end">
-                                    <input type="hidden" name="password" value="true">
-                                    <button class="btn btn-primary" type="submit">Update password</button>
-                                </div>
-                            </form>
-                        </section>
+                        </div>
+                    </section>
 
-                    </div>
+                    <p class="t-caption">
+                        Administrators never see or set passwords. In the real application, the PHP backend emails a one-time setup link and stores only a password hash.
+                    </p>
+
                 </div>
             </main>
         </div>
     </div>
-
-    <script>
-        document.querySelectorAll('.password-toggle').forEach((passwordToggle) => {
-            passwordToggle.addEventListener('click', () => {
-                const passwordInput = passwordToggle.closest('.password-field').querySelector('.input');
-                const isVisible = passwordInput.type === 'text';
-
-                passwordInput.type = isVisible ? 'password' : 'text';
-                passwordToggle.textContent = isVisible ? 'Show' : 'Hide';
-                passwordToggle.setAttribute('aria-pressed', String(!isVisible));
-            });
-        });
-    </script>
 </body>
 
 </html>

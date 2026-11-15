@@ -48,14 +48,14 @@
                 <a class="nav-link <?php isActiveUrl($currentPageUri, '/url') ?>" href="#">
                     <span class="icon icon-sample-types" aria-hidden="true"></span>Sample Types
                 </a>
-                <a class="nav-link" href="#">
+                <a class="nav-link <?php isActiveUrl($currentPageUri, '/parameters') ?>" href="/parameters">
                     <span class="icon icon-parameters" aria-hidden="true"></span>Measurement Parameters
                 </a>
             </div>
 
             <div class="nav-group">
                 <span class="nav-heading">User management</span>
-                <a class="nav-link <?php isActiveUrl($currentPageUri, '/url') ?>" href="#">
+                <a class="nav-link <?php isActiveUrl($currentPageUri, '/url') ?>" href="/profiles">
                     <span class="icon icon-technicians" aria-hidden="true"></span>Laboratory Technicians
                 </a>
             </div>

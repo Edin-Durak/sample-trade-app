@@ -29,7 +29,7 @@ if ($user->lastName) {
         <span class="icon icon-menu" aria-hidden="true"></span>
     </button>
 
-    <div class="topbar-section">Dashboard <span>· <?= $roleType ?> overview</span></div>
+    <div class="topbar-section"><?= $topbarSection ?></div>
 
     <div class="topbar-right">
         <button class="icon-btn" type="button" aria-label="Notifications">

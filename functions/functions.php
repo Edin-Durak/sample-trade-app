@@ -44,5 +44,13 @@ function endSession()
         unset($_SESSION['user']);
     }
 }
+
+### Generate random string for passwords and similar
+function getRandomString($value, $length)
+{
+    $value = random_bytes($length);
+
+    return bin2hex($value);
+}
 ### Instead of endSession we will create logout controller and ther we will check this logic to logout user
 ### endSession();
