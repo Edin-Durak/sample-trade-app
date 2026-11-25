@@ -28,33 +28,61 @@
                     </div>
 
                     <section class="card card-menu">
-                        <div class="tabs" role="tablist" aria-label="Filter by account status">
-                            <button class="tab is-active" type="button" role="tab" aria-selected="true">
-                                All <span class="tab-count">6</span>
-                            </button>
-                            <button class="tab" type="button" role="tab" aria-selected="false">
-                                Active <span class="tab-count">4</span>
-                            </button>
-                            <button class="tab" type="button" role="tab" aria-selected="false">
-                                Invitation pending <span class="tab-count">1</span>
-                            </button>
-                            <button class="tab" type="button" role="tab" aria-selected="false">
-                                Inactive <span class="tab-count">1</span>
-                            </button>
-                        </div>
+                        <form id="users-filter" method="get" action="">
+                            <!--
+                              Jedan izvor za status: hidden polje.
+                              Tabovi ga samo mijenjaju pa submitaju (bez name="is_active" na dugmadima,
+                              da se ne sudaraju dva is_active u istom requestu).
+                            -->
+                            <input type="hidden" name="search" value="true">
+                            <input type="hidden" name="is_active" id="filter-is-active" value="<?= htmlspecialchars((string) $activeFilter) ?>">
 
-                        <form class="toolbar" method="get" action="" role="search">
-                            <div class="field">
-                                <label class="label" for="u-q">Search by name or email</label>
-                                <input class="input" id="u-q" name="q" type="search" placeholder="Name or email">
+                            <div class="tabs" role="tablist" aria-label="Filter by account status">
+                                <button
+                                    class="tab <?= (string) $activeFilter === 'all' ? 'is-active' : '' ?>"
+                                    type="button"
+                                    role="tab"
+                                    data-is-active="all"
+                                    aria-selected="<?= (string) $activeFilter === 'all' ? 'true' : 'false' ?>">
+                                    All <span class="tab-count"><?= $allUsersCount ?></span>
+                                </button>
+                                <button
+                                    class="tab <?= (string) $activeFilter === '1' ? 'is-active' : '' ?>"
+                                    type="button"
+                                    role="tab"
+                                    data-is-active="1"
+                                    aria-selected="<?= (string) $activeFilter === '1' ? 'true' : 'false' ?>">
+                                    Active <span class="tab-count"><?= $activeUsersCount ?></span>
+                                </button>
+                                <button
+                                    class="tab <?= (string) $activeFilter === '0' ? 'is-active' : '' ?>"
+                                    type="button"
+                                    role="tab"
+                                    data-is-active="0"
+                                    aria-selected="<?= (string) $activeFilter === '0' ? 'true' : 'false' ?>">
+                                    Inactive <span class="tab-count"><?= $inactiveUsersCount ?></span>
+                                </button>
                             </div>
-                            <div class="field">
-                                <label class="label" for="u-role">Role</label>
-                                <select class="select" id="u-role" name="role">
-                                    <option value="all">All roles</option>
-                                    <option value="technician">Laboratory technician</option>
-                                    <option value="admin">Administrator</option>
-                                </select>
+
+                            <div class="toolbar" role="search">
+                                <div class="field">
+                                    <label class="label" for="u-q">Search by name or email</label>
+                                    <input
+                                        class="input"
+                                        id="u-q"
+                                        name="q"
+                                        type="search"
+                                        placeholder="Name or email"
+                                        value="<?= $searchFilter !== false && $searchFilter !== null ? htmlspecialchars((string) $searchFilter) : '' ?>">
+                                </div>
+                                <div class="field">
+                                    <label class="label" for="role_id">Role</label>
+                                    <select class="select" id="role_id" name="role_id" onchange="this.form.submit()">
+                                        <option value="all" <?= (string) $roleFilter === 'all' ? 'selected' : '' ?>>All roles</option>
+                                        <option value="2" <?= (string) $roleFilter === '2' ? 'selected' : '' ?>>Laboratory technician</option>
+                                        <option value="1" <?= (string) $roleFilter === '1' ? 'selected' : '' ?>>Administrator</option>
+                                    </select>
+                                </div>
                             </div>
                         </form>
 
@@ -100,7 +128,7 @@
                                             <td class="num nowrap"><?= date('d.m.Y', strtotime($user['created_at'])) ?></td>
                                             <td class="col-actions">
                                                 <details class="row-menu">
-                                                    <summary class="icon-btn" aria-label="Actions for Amra Selimović" aria-haspopup="menu">
+                                                    <summary class="icon-btn" aria-label="Actions for <?= htmlspecialchars($user['first_name']) . ' ' . ((isset($user['last_name'])) ? htmlspecialchars($user['last_name']) : '') ?>" aria-haspopup="menu">
                                                         <span aria-hidden="true">···</span>
                                                     </summary>
                                                     <div class="dropdown-menu" role="menu">
@@ -136,6 +164,29 @@
             </main>
         </div>
     </div>
+
+    <script>
+        (function() {
+            const form = document.getElementById('users-filter');
+            const statusInput = document.getElementById('filter-is-active');
+            const searchInput = document.getElementById('u-q');
+            if (!form || !statusInput) return;
+
+            form.querySelectorAll('.tabs .tab').forEach((button) => {
+                button.addEventListener('click', () => {
+                    statusInput.value = button.getAttribute('data-is-active');
+                    form.submit();
+                });
+            });
+
+            // type="search" fires "search" on Enter and on the clear (X) button
+            if (searchInput) {
+                searchInput.addEventListener('search', () => {
+                    form.submit();
+                });
+            }
+        })();
+    </script>
 </body>
 
 </html>

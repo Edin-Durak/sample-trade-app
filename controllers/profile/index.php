@@ -20,23 +20,60 @@ $user->getUser($db, $userId);
 $users = $user->getAllUsers($db);
 
 $usersCount = count($users);
-#dd($users);
+$allUsersCount = $usersCount;
 
-### Create variables for users
-#dd($firstName);
+$activeUsers = $user->getAllActiveUsers($db, 1);
+$activeUsersCount = count($activeUsers);
 
+$inactiveUsers = $user->getAllActiveUsers($db, 0);
+$inactiveUsersCount = count($inactiveUsers);
 
-
-
-#dd($_POST);
-
-### Check for request type
+$params = [];
 
 
+### Default filter values (shown before any GET submit)
+$activeFilter = 'all';
+$searchFilter = '';
+$roleFilter = 'all';
 
-#dd(($user->isActive));
 
+### Filter users
 
+if (isset($_GET['search']) && $_GET['search'] == 'true') {
+    if (! $user->isActive) {
+        abort(401);
+    }
+
+    $params = $_GET;
+    unset($params['search']);
+
+    $activeFilter = $params['is_active'] ?? 'all';
+    $searchFilter = $params['q'] ?? '';
+    $roleFilter = $params['role_id'] ?? 'all';
+
+    #dd($params);
+
+    ### For filtering all search and role users without active filter
+    ### remove activeFilter param
+    $newParams = array_diff_key($params, ['is_active' => '']);
+
+    ### Get all users by filtering all params
+    $users = $user::filterUsers($db, $params)->get();
+
+    ### Get all users by filtering without activeFilter
+    $allUsers = $user::filterUsers($db, $newParams)->get();
+
+    $usersCount = $user::countUsers($users);
+
+    ### Get all active users inside current filter
+    $activeUsersCount = $user::countUsers($allUsers, 1);
+
+    ### Get all inactive users inside current filter
+    $inactiveUsersCount = $user::countUsers($allUsers, 0);
+
+    ### Get all users inside current filter
+    $allUsersCount = $user::countUsers($allUsers);
+}
 
 
 require './Storefront/views/page/profile/index.view.php';

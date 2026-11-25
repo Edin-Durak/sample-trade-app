@@ -107,4 +107,71 @@ class User
 
         return $users;
     }
+
+    public function getAllActiveUsers($db, $isActive)
+    {
+        $users = $db->querry('SELECT * from users WHERE is_active = :isActive', [
+            'isActive' => $isActive
+        ])->get();
+
+        return $users;
+    }
+
+    public static function countUsers($users, $isActive = 'all')
+    {
+
+        $usersCount = 0;
+
+        foreach ($users as $user) {
+
+            if ($isActive == 'all') {
+
+                $usersCount++;
+            } elseif ($user['is_active'] === $isActive) {
+
+                $usersCount++;
+            }
+        }
+
+
+        return $usersCount;
+    }
+
+    public static function filterUsers($db, $params)
+    {
+
+        $sql = "SELECT * from `users` WHERE 1=1";
+
+        if (isset($params['is_active']) && $params['is_active'] !== 'all' && $params['is_active'] !== '') {
+
+            $sql = $sql . " " . "AND is_active = :is_active";
+            $params['is_active'] = (int) $params['is_active'];
+        } else {
+
+            unset($params['is_active']);
+        }
+
+        if (!empty($params['q'])) {
+
+            $sql = $sql . " " . "AND (first_name LIKE :q OR email_address LIKE :q)";
+            $q = trim($params['q']);
+            $params['q'] = "%{$q}%";
+        } else {
+            unset($params['q']);
+        }
+
+        if (isset($params['role_id']) && !($params['role_id'] == 'all')) {
+
+            $sql = $sql . " " . "AND role_id = :role_id";
+            $roleId = trim($params['role_id']);
+            $params['role_id'] = $roleId;
+        } else {
+
+            unset($params['role_id']);
+        }
+
+        $users = $db->querry($sql, $params);
+
+        return $users;
+    }
 }

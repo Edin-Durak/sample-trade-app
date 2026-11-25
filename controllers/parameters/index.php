@@ -31,5 +31,14 @@ foreach ($parameters as $parameter) {
 $parametersCount = count($parameters);
 #dd($parametersCount);
 
+$filter = [
+    "active" => 1,
+    "role" => "admin"
+];
+
+$string = http_build_query($filter, '', '?');
+
+#dd($string);
+
 
 require './Storefront/views/page/parameters/index.view.php';
