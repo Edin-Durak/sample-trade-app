@@ -18,7 +18,7 @@ class User
 
     public static function createUser($db, $firstName, $lastName, $email, $passowrd, $isActive, $roleId)
     {
-        return $db->querry(
+        return $db->query(
             'INSERT INTO users (first_name, last_name, email_address, password, is_active, role_id) VALUES (:firstName, :lastName, :email, :password, :isActive, :roleId)',
             [
                 'firstName' => $firstName,
@@ -35,7 +35,7 @@ class User
     public static function loginAttempt($db, $email_address, $passowrd)
     {
 
-        return $db->querry('SELECT * FROM users WHERE email_address = :email AND password = :password',  [
+        return $db->query('SELECT * FROM users WHERE email_address = :email AND password = :password',  [
             'email' => $email_address,
             'password' => $passowrd
         ])->find();
@@ -50,7 +50,7 @@ class User
 
 
 
-        $user = $db->querry('SELECT * FROM users WHERE id = :userId',  [
+        $user = $db->query('SELECT * FROM users WHERE id = :userId',  [
             'userId' => $userId
         ])->find();
 
@@ -75,7 +75,7 @@ class User
     {
         #check if user is administrator
         if ($roleId == 1) {
-            return $db->querry('UPDATE users SET first_name = :firstName, last_name = :lastName, email_address = :email, role_id = :roleId WHERE id = :userId', [
+            return $db->query('UPDATE users SET first_name = :firstName, last_name = :lastName, email_address = :email, role_id = :roleId WHERE id = :userId', [
                 'firstName' => $firstName,
                 'lastName' => $lastName,
                 'email' => $email,
@@ -83,7 +83,7 @@ class User
                 'userId' => $userId
             ]);
         } else {
-            return $db->querry('UPDATE users SET first_name = :firstName, last_name = :lastName WHERE id = :userId', [
+            return $db->query('UPDATE users SET first_name = :firstName, last_name = :lastName WHERE id = :userId', [
                 'firstName' => $firstName,
                 'lastName' => $lastName,
                 'userId' => $userId
@@ -94,7 +94,7 @@ class User
     public static function editPassword($db, $password, $userId)
     {
 
-        return $db->querry('UPDATE users SET password = :password WHERE id = :userId', [
+        return $db->query('UPDATE users SET password = :password WHERE id = :userId', [
             'password' => $password,
             'userId' => $userId
         ]);
@@ -103,14 +103,14 @@ class User
 
     public function getAllUsers($db)
     {
-        $users = $db->querry('SELECT * from users')->get();
+        $users = $db->query('SELECT * from users')->get();
 
         return $users;
     }
 
     public function getAllActiveUsers($db, $isActive)
     {
-        $users = $db->querry('SELECT * from users WHERE is_active = :isActive', [
+        $users = $db->query('SELECT * from users WHERE is_active = :isActive', [
             'isActive' => $isActive
         ])->get();
 
@@ -170,7 +170,7 @@ class User
             unset($params['role_id']);
         }
 
-        $users = $db->querry($sql, $params);
+        $users = $db->query($sql, $params);
 
         return $users;
     }

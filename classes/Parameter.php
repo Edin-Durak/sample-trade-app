@@ -21,7 +21,7 @@ class Parameter
     public static function createParameter($db, $name, $shortCode, $description, $measurementUnit, $active, $minimum, $maximum)
     {
 
-        return $db->querry('INSERT INTO parameters (name, short_code, description, measurement_unit, active, minimum, maximum) VALUES( :name, :shortCode, :description, :measurementUnit, :active, :minimum, :maximum)', [
+        return $db->query('INSERT INTO parameters (name, short_code, description, measurement_unit, active, minimum, maximum) VALUES( :name, :shortCode, :description, :measurementUnit, :active, :minimum, :maximum)', [
             'name' => $name,
             'shortCode' => $shortCode,
             'description' => $description,
@@ -36,7 +36,7 @@ class Parameter
     public static function editParameter($db, $name, $shortCode, $description, $measurementUnit, $active, $minimum, $maximum, $id)
     {
 
-        return $db->querry('UPDATE parameters SET name = :name, short_code = :shortCode, description = :description, measurement_unit = :measurementUnit, active = :active, minimum = :minimum, maximum = :maximum WHERE id = :id', [
+        return $db->query('UPDATE parameters SET name = :name, short_code = :shortCode, description = :description, measurement_unit = :measurementUnit, active = :active, minimum = :minimum, maximum = :maximum WHERE id = :id', [
             'name' => $name,
             'shortCode' => $shortCode,
             'description' => $description,
@@ -52,7 +52,7 @@ class Parameter
 
     public function getAllarameters($db)
     {
-        $parameters = $db->querry('SELECT * from parameters')->get();
+        $parameters = $db->query('SELECT * from parameters')->get();
 
         return $parameters;
     }
@@ -62,7 +62,7 @@ class Parameter
     public function getParameter($db, $id)
     {
         ### Since we only search for one type of argument, we can inline variable like this
-        $parameter = $db->querry("SELECT * from parameters WHERE id = {$id}")->findOrFail();
+        $parameter = $db->query("SELECT * from parameters WHERE id = {$id}")->findOrFail();
 
         $this->id = $parameter['id'];
         $this->name = $parameter['name'];
