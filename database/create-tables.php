@@ -8,7 +8,7 @@ require __DIR__ . '/../variables/variables.php';
 
 $charset = $config['database']['charset'];
 
-$db->querry("
+$db->query("
     CREATE TABLE IF NOT EXISTS `role` (
         `id` int NOT NULL AUTO_INCREMENT,
         `role_name` varchar(255) NOT NULL,
@@ -16,7 +16,7 @@ $db->querry("
     ) ENGINE=InnoDB DEFAULT CHARSET={$charset}
 ");
 
-$db->querry("
+$db->query("
     CREATE TABLE IF NOT EXISTS `users` (
         `id` int NOT NULL AUTO_INCREMENT,
         `first_name` varchar(255) NOT NULL,
@@ -33,7 +33,7 @@ $db->querry("
     ) ENGINE=InnoDB DEFAULT CHARSET={$charset}
 ");
 
-$db->querry("
+$db->query("
 CREATE TABLE IF NOT EXISTS `parameters` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
@@ -58,28 +58,28 @@ CREATE TABLE IF NOT EXISTS `parameters` (
     )
 ) ENGINE=InnoDB DEFAULT CHARSET={$charset};");
 
-$adminRole = $db->querry('SELECT id FROM role WHERE id = 1')->find();
+$adminRole = $db->query('SELECT id FROM role WHERE id = 1')->find();
 
 if (!$adminRole) {
-    $db->querry('INSERT INTO role (id, role_name) VALUES (1, :role_name)', [
+    $db->query('INSERT INTO role (id, role_name) VALUES (1, :role_name)', [
         'role_name' => 'admin',
     ]);
 }
 
-$technicianRole = $db->querry('SELECT id FROM role WHERE id = 2')->find();
+$technicianRole = $db->query('SELECT id FROM role WHERE id = 2')->find();
 
 if (!$technicianRole) {
-    $db->querry('INSERT INTO role (id, role_name) VALUES (2, :role_name)', [
+    $db->query('INSERT INTO role (id, role_name) VALUES (2, :role_name)', [
         'role_name' => 'technician',
     ]);
 }
 
-$user = $db->querry('SELECT id FROM users WHERE email_address = :email', [
+$user = $db->query('SELECT id FROM users WHERE email_address = :email', [
     'email' => 'admin@admin.com',
 ])->find();
 
 if (!$user) {
-    $db->querry(
+    $db->query(
         'INSERT INTO users (first_name, email_address, password, is_active, role_id)
          VALUES (:first_name, :email, :password, :is_active, :role_id)',
         [

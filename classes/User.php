@@ -18,7 +18,7 @@ class User
 
     public static function createUser($db, $firstName, $lastName, $email, $passowrd, $isActive, $roleId)
     {
-        return $db->querry(
+        return $db->query(
             'INSERT INTO users (first_name, last_name, email_address, password, is_active, role_id) VALUES (:firstName, :lastName, :email, :password, :isActive, :roleId)',
             [
                 'firstName' => $firstName,
@@ -35,7 +35,7 @@ class User
     public static function loginAttempt($db, $email_address, $passowrd)
     {
 
-        return $db->querry('SELECT * FROM users WHERE email_address = :email AND password = :password',  [
+        return $db->query('SELECT * FROM users WHERE email_address = :email AND password = :password',  [
             'email' => $email_address,
             'password' => $passowrd
         ])->find();
@@ -50,7 +50,7 @@ class User
 
 
 
-        $user = $db->querry('SELECT * FROM users WHERE id = :userId',  [
+        $user = $db->query('SELECT * FROM users WHERE id = :userId',  [
             'userId' => $userId
         ])->find();
 
@@ -75,7 +75,7 @@ class User
     {
         #check if user is administrator
         if ($roleId == 1) {
-            return $db->querry('UPDATE users SET first_name = :firstName, last_name = :lastName, email_address = :email, role_id = :roleId WHERE id = :userId', [
+            return $db->query('UPDATE users SET first_name = :firstName, last_name = :lastName, email_address = :email, role_id = :roleId WHERE id = :userId', [
                 'firstName' => $firstName,
                 'lastName' => $lastName,
                 'email' => $email,
@@ -83,7 +83,7 @@ class User
                 'userId' => $userId
             ]);
         } else {
-            return $db->querry('UPDATE users SET first_name = :firstName, last_name = :lastName WHERE id = :userId', [
+            return $db->query('UPDATE users SET first_name = :firstName, last_name = :lastName WHERE id = :userId', [
                 'firstName' => $firstName,
                 'lastName' => $lastName,
                 'userId' => $userId
@@ -94,16 +94,140 @@ class User
     public static function editPassword($db, $password, $userId)
     {
 
-        return $db->querry('UPDATE users SET password = :password WHERE id = :userId', [
+        return $db->query('UPDATE users SET password = :password WHERE id = :userId', [
             'password' => $password,
             'userId' => $userId
         ]);
     }
 
+    public static function bulkEdit($db, $params)
+    {
+        $id = $params['id'];
+
+        if (isset($params['role_id'])) {
+
+            if ($params['role_id'] == 1) {
+
+                ### Change to technician
+                $roleId = 2;
+                return $db->query('UPDATE users SET role_id = :roleId WHERE id = :userId', [
+                    'roleId' => $roleId,
+                    'userId' => $id
+                ]);
+            } elseif ($params['role_id'] == 2) {
+
+                #Change to admin
+                $roleId = 1;
+                return $db->query('UPDATE users SET role_id = :roleId WHERE id = :userId', [
+                    'roleId' => $roleId,
+                    'userId' => $id
+                ]);
+            }
+        }
+
+        if (isset($params['is_active'])) {
+
+            if ($params['is_active'] == 1) {
+
+                ### Change to technician
+                $isActive = 0;
+                return $db->query('UPDATE users SET is_active = :isActive WHERE id = :userId', [
+                    'isActive' => $isActive,
+                    'userId' => $id
+                ]);
+            } elseif ($params['is_active'] == 0) {
+
+                #Change to admin
+                $isActive = 1;
+                return  $db->query('UPDATE users SET is_active = :isActive WHERE id = :userId', [
+                    'isActive' => $isActive,
+                    'userId' => $id
+                ]);
+            }
+        }
+
+        if (isset($params['delete'])) {
+
+            if ($params['delete'] == 'delete') {
+
+                return $db->query('DELETE from users WHERE id = :userId', [
+                    'userId' => $id
+                ]);
+            }
+        }
+    }
+
 
     public function getAllUsers($db)
     {
-        $users = $db->querry('SELECT * from users')->get();
+        $users = $db->query('SELECT * from users')->get();
+
+        return $users;
+    }
+
+    public function getAllActiveUsers($db, $isActive)
+    {
+        $users = $db->query('SELECT * from users WHERE is_active = :isActive', [
+            'isActive' => $isActive
+        ])->get();
+
+        return $users;
+    }
+
+    public static function countUsers($users, $isActive = 'all')
+    {
+
+        $usersCount = 0;
+
+        foreach ($users as $user) {
+
+            if ($isActive == 'all') {
+
+                $usersCount++;
+            } elseif ($user['is_active'] === $isActive) {
+
+                $usersCount++;
+            }
+        }
+
+
+        return $usersCount;
+    }
+
+    public static function filterUsers($db, $params)
+    {
+
+        $sql = "SELECT * from `users` WHERE 1=1";
+
+        if (isset($params['is_active']) && $params['is_active'] !== 'all' && $params['is_active'] !== '') {
+
+            $sql = $sql . " " . "AND is_active = :is_active";
+            $params['is_active'] = (int) $params['is_active'];
+        } else {
+
+            unset($params['is_active']);
+        }
+
+        if (!empty($params['q'])) {
+
+            $sql = $sql . " " . "AND (first_name LIKE :q OR email_address LIKE :q)";
+            $q = trim($params['q']);
+            $params['q'] = "%{$q}%";
+        } else {
+            unset($params['q']);
+        }
+
+        if (isset($params['role_id']) && !($params['role_id'] == 'all')) {
+
+            $sql = $sql . " " . "AND role_id = :role_id";
+            $roleId = trim($params['role_id']);
+            $params['role_id'] = $roleId;
+        } else {
+
+            unset($params['role_id']);
+        }
+
+        $users = $db->query($sql, $params);
 
         return $users;
     }

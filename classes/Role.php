@@ -11,7 +11,7 @@ class Role
     ### On initalization of Role class get all roles
     public function allRoles($db)
     {
-        $this->roles = $db->querry('SELECT * from `role`')->get();
+        $this->roles = $db->query('SELECT * from `role`')->get();
 
         return $this->roles;
     }
