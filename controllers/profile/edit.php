@@ -25,18 +25,13 @@ $userId = $user->id;
 $passowrd = $user->password;
 
 
-#dd($userId);
-
 ### Check for request type
-
-
-
-#dd(($user->isActive));
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     ## IF user is not active, abort
     if ($user->isActive === 0) {
+
         abort(401);
     }
 
@@ -47,25 +42,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ### Profile request
     if (isset($_POST['profile']) && $_POST['profile'] == 'true') {
 
-
-
-
         $firstName = $_POST['first_name'];
         $lastName = $_POST['last_name'];
         if ($userRole === 1) {
+
             $email = $_POST['email'];
         }
 
         if (! Validator::string($firstName, 1, 255)) {
+
             $errors['profileErrorMessage'] = "Check first name input. It can't be empty or longer than 255 characters.";
         }
 
         if (! Validator::string($email, 1, 255)) {
+
             $errors['profileErrorMessage'] = "Check email input. It can't be empty or longer than 255 characters.";
         }
 
 
         if (empty($errors)) {
+
             User::editProfile($db, $firstName, $lastName, $email, $userRole, $userId);
 
             header('Location: /profile');
@@ -81,19 +77,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $confirmPassword = $_POST['confirm_password'];
 
         if (! Validator::string($newPassword, 1, 255)) {
+
             $errors['passwordErrorMessage'] = "Password is required. Max number of characters is 255.";
         } elseif (! Validator::string($confirmPassword, 1, 255)) {
+
             $errors['passwordErrorMessage'] = "Password is required. Max number of characters is 255.";
         } elseif (! ($newPassword === $confirmPassword)) {
+
             $errors['passwordErrorMessage'] = 'Passwords do not match. Please try again.';
         } elseif (empty($errors)) {
+
             User::editPassword($db, $newPassword, $userId);
 
             header('Location: /profile');
             exit();
         }
-
-        #dd($_POST);
     }
 }
 

@@ -8,7 +8,6 @@ require_once __DIR__ . '/../../classes/Parameter.php';
 $metaTitle = 'Measuerment parameters';
 $topbarSection = 'Measurement Parameters · Laboratory configuration';
 
-#dd($_SESSION);
 
 $userId = $_SESSION['user']['userId'];
 $userRole = $_SESSION['user']['userRole'];
@@ -18,6 +17,11 @@ global $db;
 
 $user = new User();
 $user->getUser($db, $userId);
+
+### Only admin can visit this page
+if ($user->roleId !== 1) {
+    abort(401);
+}
 
 $parameter = new Parameter();
 
@@ -29,7 +33,6 @@ foreach ($parameters as $parameter) {
 }
 
 $parametersCount = count($parameters);
-#dd($parametersCount);
 
 $filter = [
     "active" => 1,
@@ -38,7 +41,6 @@ $filter = [
 
 $string = http_build_query($filter, '', '?');
 
-#dd($string);
 
 
 require './Storefront/views/page/parameters/index.view.php';

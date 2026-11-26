@@ -18,9 +18,14 @@ $roleList = $roles->allRoles($db);
 $user = new User();
 $user->getUser($db, $userId);
 
-$isAdmin = false;
+### Check if user is admin and if not abort(401)
 if ($user->roleId == 1) {
+
     $isAdmin = true;
+} else {
+
+    $isAdmin = false;
+    abort(401);
 }
 
 ### Set false variables to avoid error on initial load
@@ -39,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     ### First check if user is admin
 
     if (!$isAdmin) {
-        abort();
+        abort(401);
     }
 
     if (isset($_POST['create_profile']) && $_POST['create_profile'] == 'true') {

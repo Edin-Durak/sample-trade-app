@@ -9,7 +9,6 @@ require_once __DIR__ . '/../../classes/Parameter.php';
 $metaTitle = 'Measuerment parameters';
 $topbarSection = 'Measurement Parameters · Parameter form';
 
-#dd($_SESSION);
 
 $userId = $_SESSION['user']['userId'];
 $userRole = $_SESSION['user']['userRole'];
@@ -34,7 +33,6 @@ $parameter->getParameter($db, $editUriId);
 
 $parameterId = $parameter->id;
 
-#dd($parameterId);
 
 ### Set default parameter variables to avoid errors on initial load of create
 
@@ -49,12 +47,11 @@ $maximum = $parameter->maximum;
 $createdAt = $parameter->createdAt;
 $updatedAt = $parameter->updatedAt;
 
-#dd($_POST);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    ## IF user is not active, abort
-    if ($user->isActive === 0) {
+    # check if user is admin and if user is active
+    if (!($userRole == 1) && !($user->isActive)) {
         abort(401);
     }
 

@@ -17,6 +17,11 @@ $roleList = $roles->allRoles($db);
 $user = new User();
 $user->getUser($db, $userId);
 
+### Only admin can visit this page
+if ($user->roleId !== 1) {
+    abort(401);
+}
+
 $users = $user->getAllUsers($db);
 
 $usersCount = count($users);
@@ -39,7 +44,7 @@ $roleFilter = 'all';
 ### Filter users
 
 if (isset($_GET['search']) && $_GET['search'] == 'true') {
-    if (! $user->isActive) {
+    if (!($user->isActive) || ($user->roleId !== 1)) {
         abort(401);
     }
 
@@ -80,7 +85,7 @@ if (isset($_GET['search']) && $_GET['search'] == 'true') {
 $currentPageUri = $_SERVER['REQUEST_URI'];
 
 if (isset($_POST['bulk_edit']) && $_POST['bulk_edit'] == 'true') {
-    if (! $user->isActive) {
+    if (!($user->isActive) || ($user->roleId !== 1)) {
         abort(401);
     }
 

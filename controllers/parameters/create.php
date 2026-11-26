@@ -9,7 +9,6 @@ require_once __DIR__ . '/../../classes/Parameter.php';
 $metaTitle = 'Measuerment parameters';
 $topbarSection = 'Measurement Parameters · Parameter form';
 
-#dd($_SESSION);
 
 $userId = $_SESSION['user']['userId'];
 $userRole = $_SESSION['user']['userRole'];
@@ -22,7 +21,6 @@ $user->getUser($db, $userId);
 
 $parameter = new Parameter();
 
-#dd($_POST);
 
 ### Set default parameter variables to avoid errors on initial load of create
 
@@ -84,8 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         }
     }
-
-    # dd($errors);
 }
 
 

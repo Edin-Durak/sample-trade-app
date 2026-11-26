@@ -22,11 +22,12 @@
                     <div class="auth-intro">
                         <h1 class="auth-title">401 · Unauthorized</h1>
                         <p class="text-secondary">
-                            Unauthorized access to the reqeusted page. Sign in first!
+                            Unauthorized access to the reqeusted page. Sign in first or go back to the home page!
                         </p>
                     </div>
 
                     <a class="btn btn-primary btn-block" href="/login">Sign in</a>
+                    <a class="btn btn-primary btn-block" href="/">Home page</a>
                 </div>
             </div>
         </main>
