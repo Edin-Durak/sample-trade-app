@@ -36,7 +36,6 @@ $activeFilter = 'all';
 $searchFilter = '';
 $roleFilter = 'all';
 
-
 ### Filter users
 
 if (isset($_GET['search']) && $_GET['search'] == 'true') {
@@ -73,6 +72,24 @@ if (isset($_GET['search']) && $_GET['search'] == 'true') {
 
     ### Get all users inside current filter
     $allUsersCount = $user::countUsers($allUsers);
+}
+
+### Bulk Edit of a user
+
+# Current page URI to keep filters active on Bulk Edit
+$currentPageUri = $_SERVER['REQUEST_URI'];
+
+if (isset($_POST['bulk_edit']) && $_POST['bulk_edit'] == 'true') {
+    if (! $user->isActive) {
+        abort(401);
+    }
+
+    $params = $_POST;
+
+    User::bulkEdit($db, $params);
+
+    header("Location: $currentPageUri");
+    exit();
 }
 
 

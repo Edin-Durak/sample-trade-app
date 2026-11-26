@@ -132,10 +132,15 @@
                                                         <span aria-hidden="true">···</span>
                                                     </summary>
                                                     <div class="dropdown-menu" role="menu">
-                                                        <button class="dropdown-item" type="button" role="menuitem">Change role</button>
-                                                        <button class="dropdown-item" type="button" role="menuitem">Deactivate account…</button>
-                                                        <div class="dropdown-divider"></div>
-                                                        <button class="dropdown-item is-danger" type="button" role="menuitem">Delete account…</button>
+                                                        <form action="" method="post">
+                                                            <button class="dropdown-item" type="submit" value="<?= $user['role_id'] ?>" name="role_id" role="menuitem">Change role</button>
+                                                            <button class="dropdown-item" type="submit" role="menuitem" name="is_active" value="<?= $user['is_active'] ?>"><?= $user['is_active'] ? 'Deactivate account…' : 'Activate account…' ?></button>
+                                                            <div class="dropdown-divider"></div>
+                                                            <button class="dropdown-item is-danger" type="submit" name="delete" value="delete" role="menuitem">Delete account…</button>
+
+                                                            <input type="hidden" name="id" value="<?= $user['id'] ?>">
+                                                            <input type="hidden" name="bulk_edit" value="true">
+                                                        </form>
                                                     </div>
                                                 </details>
                                             </td>

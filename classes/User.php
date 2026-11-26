@@ -100,6 +100,63 @@ class User
         ]);
     }
 
+    public static function bulkEdit($db, $params)
+    {
+        $id = $params['id'];
+
+        if (isset($params['role_id'])) {
+
+            if ($params['role_id'] == 1) {
+
+                ### Change to technician
+                $roleId = 2;
+                return $db->query('UPDATE users SET role_id = :roleId WHERE id = :userId', [
+                    'roleId' => $roleId,
+                    'userId' => $id
+                ]);
+            } elseif ($params['role_id'] == 2) {
+
+                #Change to admin
+                $roleId = 1;
+                return $db->query('UPDATE users SET role_id = :roleId WHERE id = :userId', [
+                    'roleId' => $roleId,
+                    'userId' => $id
+                ]);
+            }
+        }
+
+        if (isset($params['is_active'])) {
+
+            if ($params['is_active'] == 1) {
+
+                ### Change to technician
+                $isActive = 0;
+                return $db->query('UPDATE users SET is_active = :isActive WHERE id = :userId', [
+                    'isActive' => $isActive,
+                    'userId' => $id
+                ]);
+            } elseif ($params['is_active'] == 0) {
+
+                #Change to admin
+                $isActive = 1;
+                return  $db->query('UPDATE users SET is_active = :isActive WHERE id = :userId', [
+                    'isActive' => $isActive,
+                    'userId' => $id
+                ]);
+            }
+        }
+
+        if (isset($params['delete'])) {
+
+            if ($params['delete'] == 'delete') {
+
+                return $db->query('DELETE from users WHERE id = :userId', [
+                    'userId' => $id
+                ]);
+            }
+        }
+    }
+
 
     public function getAllUsers($db)
     {
