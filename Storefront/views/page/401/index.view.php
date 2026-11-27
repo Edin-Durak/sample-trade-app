@@ -2,7 +2,33 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php require __DIR__ . '/../meta/head.view.php'; ?>
+<?php
+
+require __DIR__ . '/../meta/head.view.php';
+
+
+### Dynamically adjusted content based on whether the user is logged in
+
+if (isset($_SESSION['user'])) {
+
+    $userIsSignedIn = true;
+} else {
+    $userIsSignedIn = false;
+}
+
+if ($userIsSignedIn) {
+
+    $textMessage = 'Unauthorized access to the reqeusted page. Go back to the home page!';
+    $ctaUrl = '/';
+    $ctaLabel = 'Home page';
+} else {
+
+    $textMessage = 'Unauthorized access to the reqeusted page. Sign in first!';
+    $ctaUrl = '/login';
+    $ctaLabel = 'Sign in';
+}
+
+?>
 
 <body>
     <div class="auth-page">
@@ -22,12 +48,11 @@
                     <div class="auth-intro">
                         <h1 class="auth-title">401 · Unauthorized</h1>
                         <p class="text-secondary">
-                            Unauthorized access to the reqeusted page. Sign in first or go back to the home page!
+                            <?= $textMessage ?>
                         </p>
                     </div>
 
-                    <a class="btn btn-primary btn-block" href="/login">Sign in</a>
-                    <a class="btn btn-primary btn-block" href="/">Home page</a>
+                    <a class="btn btn-primary btn-block" href=<?= $ctaUrl ?>><?= $ctaLabel ?></a>
                 </div>
             </div>
         </main>
